@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
+using SiegeCombat.Models;
 
 namespace SiegeCombat.Controllers
 {
@@ -10,6 +14,7 @@ namespace SiegeCombat.Controllers
     {
         //
         // GET: /Login/
+        SiegeCombat.Models.SiegeCombatEntities bd = new Models.SiegeCombatEntities();
 
         public ActionResult Index()
         {
@@ -20,16 +25,18 @@ namespace SiegeCombat.Controllers
         {
             try
             {
-                if (usuario == "Angel" && password == "Hola123")
-                {
+                Usuario user = null;
+                user = bd.Usuario.Where(u => u.Nombre == usuario && u.Contraseña == password).First();
+                if(user != null)                   
                     return Json(new { result = true, url = Url.Action("Index", "Lobby") });
-                }
+                else
+                   return Json(new { result = false, url = "" });
             }
             catch (Exception ex)
             {
-
+                return Json(new { result = false, url = "" });
             }
-            return Json(new { result = false, url = Url.Action("Index", "Lobby") });
         }
+        
     }
 }

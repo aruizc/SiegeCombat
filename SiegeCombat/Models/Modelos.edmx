@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SiegeCombatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DetallePartida">
+          <Key>
+            <PropertyRef Name="IdDetalle" />
+          </Key>
+          <Property Name="IdDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Posicion" Type="nvarchar" MaxLength="50" />
+          <Property Name="Movimiento" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdJugador" Type="int" />
+          <Property Name="Resultado" Type="nvarchar" MaxLength="250" />
+          <Property Name="IdPartida" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jugador">
+          <Key>
+            <PropertyRef Name="IdJugador" />
+          </Key>
+          <Property Name="IdJugador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EXP" Type="int" Nullable="false" />
+          <Property Name="Mejora1" Type="bit" />
+          <Property Name="Mejora2" Type="bit" />
+          <Property Name="Mejora3" Type="int" />
+          <Property Name="Nivel" Type="int" />
+          <Property Name="Estatus" Type="int" />
+        </EntityType>
+        <EntityType Name="Partida">
+          <Key>
+            <PropertyRef Name="IdPartida" />
+          </Key>
+          <Property Name="IdPartida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="IdGanador" Type="int" />
+          <Property Name="Tiempo" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdJugadorUno" Type="int" Nullable="false" />
+          <Property Name="IdJugadorDos" Type="int" Nullable="false" />
+          <Property Name="IdDetalle" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+          <Property Name="Correo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Contraseña" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdJugador" Type="int" />
+        </EntityType>
+        <Association Name="FK_DetallePartida_Partida">
+          <End Role="Partida" Type="Self.Partida" Multiplicity="1" />
+          <End Role="DetallePartida" Type="Self.DetallePartida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partida">
+              <PropertyRef Name="IdPartida" />
+            </Principal>
+            <Dependent Role="DetallePartida">
+              <PropertyRef Name="IdPartida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Partida_Jugador">
+          <End Role="Jugador" Type="Self.Jugador" Multiplicity="1" />
+          <End Role="Partida" Type="Self.Partida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="IdJugador" />
+            </Principal>
+            <Dependent Role="Partida">
+              <PropertyRef Name="IdJugadorUno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Partida_Jugador1">
+          <End Role="Jugador" Type="Self.Jugador" Multiplicity="1" />
+          <End Role="Partida" Type="Self.Partida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="IdJugador" />
+            </Principal>
+            <Dependent Role="Partida">
+              <PropertyRef Name="IdJugadorDos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Jugador">
+          <End Role="Jugador" Type="Self.Jugador" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="IdJugador" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IdJugador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SiegeCombatModelStoreContainer">
+          <EntitySet Name="DetallePartida" EntityType="Self.DetallePartida" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jugador" EntityType="Self.Jugador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Partida" EntityType="Self.Partida" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DetallePartida_Partida" Association="Self.FK_DetallePartida_Partida">
+            <End Role="Partida" EntitySet="Partida" />
+            <End Role="DetallePartida" EntitySet="DetallePartida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Partida_Jugador" Association="Self.FK_Partida_Jugador">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="Partida" EntitySet="Partida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Partida_Jugador1" Association="Self.FK_Partida_Jugador1">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="Partida" EntitySet="Partida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Jugador" Association="Self.FK_Usuario_Jugador">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SiegeCombatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DetallePartida">
+          <Key>
+            <PropertyRef Name="IdDetalle" />
+          </Key>
+          <Property Name="IdDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Posicion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Movimiento" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdJugador" Type="Int32" />
+          <Property Name="Resultado" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IdPartida" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Partida" Relationship="Self.FK_DetallePartida_Partida" FromRole="DetallePartida" ToRole="Partida" />
+        </EntityType>
+        <EntityType Name="Jugador">
+          <Key>
+            <PropertyRef Name="IdJugador" />
+          </Key>
+          <Property Name="IdJugador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EXP" Type="Int32" Nullable="false" />
+          <Property Name="Mejora1" Type="Boolean" />
+          <Property Name="Mejora2" Type="Boolean" />
+          <Property Name="Mejora3" Type="Int32" />
+          <Property Name="Nivel" Type="Int32" />
+          <Property Name="Estatus" Type="Int32" />
+          <NavigationProperty Name="Partida" Relationship="Self.FK_Partida_Jugador" FromRole="Jugador" ToRole="Partida" />
+          <NavigationProperty Name="Partida1" Relationship="Self.FK_Partida_Jugador1" FromRole="Jugador" ToRole="Partida" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Jugador" FromRole="Jugador" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Partida">
+          <Key>
+            <PropertyRef Name="IdPartida" />
+          </Key>
+          <Property Name="IdPartida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="IdGanador" Type="Int32" />
+          <Property Name="Tiempo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdJugadorUno" Type="Int32" Nullable="false" />
+          <Property Name="IdJugadorDos" Type="Int32" Nullable="false" />
+          <Property Name="IdDetalle" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DetallePartida" Relationship="Self.FK_DetallePartida_Partida" FromRole="Partida" ToRole="DetallePartida" />
+          <NavigationProperty Name="Jugador" Relationship="Self.FK_Partida_Jugador" FromRole="Partida" ToRole="Jugador" />
+          <NavigationProperty Name="Jugador1" Relationship="Self.FK_Partida_Jugador1" FromRole="Partida" ToRole="Jugador" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdJugador" Type="Int32" />
+          <NavigationProperty Name="Jugador" Relationship="Self.FK_Usuario_Jugador" FromRole="Usuario" ToRole="Jugador" />
+        </EntityType>
+        <Association Name="FK_DetallePartida_Partida">
+          <End Role="Partida" Type="Self.Partida" Multiplicity="1" />
+          <End Role="DetallePartida" Type="Self.DetallePartida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partida">
+              <PropertyRef Name="IdPartida" />
+            </Principal>
+            <Dependent Role="DetallePartida">
+              <PropertyRef Name="IdPartida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Partida_Jugador">
+          <End Role="Jugador" Type="Self.Jugador" Multiplicity="1" />
+          <End Role="Partida" Type="Self.Partida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="IdJugador" />
+            </Principal>
+            <Dependent Role="Partida">
+              <PropertyRef Name="IdJugadorUno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Partida_Jugador1">
+          <End Role="Jugador" Type="Self.Jugador" Multiplicity="1" />
+          <End Role="Partida" Type="Self.Partida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="IdJugador" />
+            </Principal>
+            <Dependent Role="Partida">
+              <PropertyRef Name="IdJugadorDos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Jugador">
+          <End Role="Jugador" Type="Self.Jugador" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="IdJugador" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IdJugador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SiegeCombatEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DetallePartida" EntityType="Self.DetallePartida" />
+          <EntitySet Name="Jugador" EntityType="Self.Jugador" />
+          <EntitySet Name="Partida" EntityType="Self.Partida" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_DetallePartida_Partida" Association="Self.FK_DetallePartida_Partida">
+            <End Role="Partida" EntitySet="Partida" />
+            <End Role="DetallePartida" EntitySet="DetallePartida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Partida_Jugador" Association="Self.FK_Partida_Jugador">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="Partida" EntitySet="Partida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Partida_Jugador1" Association="Self.FK_Partida_Jugador1">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="Partida" EntitySet="Partida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Jugador" Association="Self.FK_Usuario_Jugador">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SiegeCombatModelStoreContainer" CdmEntityContainer="SiegeCombatEntities">
+          <EntitySetMapping Name="DetallePartida">
+            <EntityTypeMapping TypeName="SiegeCombatModel.DetallePartida">
+              <MappingFragment StoreEntitySet="DetallePartida">
+                <ScalarProperty Name="IdDetalle" ColumnName="IdDetalle" />
+                <ScalarProperty Name="Posicion" ColumnName="Posicion" />
+                <ScalarProperty Name="Movimiento" ColumnName="Movimiento" />
+                <ScalarProperty Name="IdJugador" ColumnName="IdJugador" />
+                <ScalarProperty Name="Resultado" ColumnName="Resultado" />
+                <ScalarProperty Name="IdPartida" ColumnName="IdPartida" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jugador">
+            <EntityTypeMapping TypeName="SiegeCombatModel.Jugador">
+              <MappingFragment StoreEntitySet="Jugador">
+                <ScalarProperty Name="IdJugador" ColumnName="IdJugador" />
+                <ScalarProperty Name="EXP" ColumnName="EXP" />
+                <ScalarProperty Name="Mejora1" ColumnName="Mejora1" />
+                <ScalarProperty Name="Mejora2" ColumnName="Mejora2" />
+                <ScalarProperty Name="Mejora3" ColumnName="Mejora3" />
+                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Partida">
+            <EntityTypeMapping TypeName="SiegeCombatModel.Partida">
+              <MappingFragment StoreEntitySet="Partida">
+                <ScalarProperty Name="IdPartida" ColumnName="IdPartida" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdGanador" ColumnName="IdGanador" />
+                <ScalarProperty Name="Tiempo" ColumnName="Tiempo" />
+                <ScalarProperty Name="IdJugadorUno" ColumnName="IdJugadorUno" />
+                <ScalarProperty Name="IdJugadorDos" ColumnName="IdJugadorDos" />
+                <ScalarProperty Name="IdDetalle" ColumnName="IdDetalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="SiegeCombatModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+                <ScalarProperty Name="IdJugador" ColumnName="IdJugador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

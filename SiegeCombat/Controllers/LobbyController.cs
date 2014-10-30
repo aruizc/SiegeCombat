@@ -14,6 +14,7 @@ namespace SiegeCombat.Controllers
         public ActionResult Index()
         {
             return View();
+            
         }
 
     }
