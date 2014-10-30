@@ -70,9 +70,10 @@
     </div>
 </div>
 
-<div id="Ingresar" data-url="@Url.Action("Ingresar","Home")"></div>
+<div id="Ingresar" data-url="@Url.Action("Ingresar","Login")"></div>
 <script>
     function login() {
+        debugger;
         var usuario = document.getElementById('usuario').value;
         var password = document.getElementById('password').value;
         var ruta = $('#Ingresar').attr('data-url');
