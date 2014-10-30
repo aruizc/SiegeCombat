@@ -141,6 +141,16 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\imagenes\imagenesFondos\ariete.jpg" />
+    <Content Include="Content\imagenes\imagenesFondos\Ariete2.jpg" />
+    <Content Include="Content\imagenes\imagenesFondos\Catapulta.jpg" />
+    <Content Include="Content\imagenes\imagenesFondos\fondo-telon.jpg" />
+    <Content Include="Content\imagenes\imagenesFondos\Madera-Textura.jpg" />
+    <Content Include="Content\imagenes\imagenesFondos\Madera1.jpg" />
+    <Content Include="Content\imagenes\imagenesFondos\mapa-del-mundoAntiguo.jpg" />
+    <Content Include="Content\imagenes\imagenesFondos\MundoAntiguo.jpg" />
+    <Content Include="Content\imagenes\imagenesFondos\papiroFomdo.jpg" />
+    <Content Include="Content\imagenes\Logo3.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
