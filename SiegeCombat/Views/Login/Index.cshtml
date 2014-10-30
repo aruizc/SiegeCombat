@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Siege Combat";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well login-box">
+                <form action="">
+                    <legend>Bienvenido a Siege Combat</legend>
+                    <div class="form-group">
+                        <label for="username-email">Usuario</label>
+                        <input value='' id="usuario" placeholder="Usuario" type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input id="password" value='' placeholder="Password" type="text" class="form-control" />
+                    </div>
+                    <div class="form-group text-center">
+                        <button class="btn btn-danger btn-cancel-action" onclick="login();">Combatir</button>
+                        <button type="submit" class="btn btn-primary" onclick="">Registrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalRegistrar" tabindex="-1" data-backdrop="static">
+    <div class="modal-dialog centrar">
+        <div class="modal-content modalCita">
+            <div class="modal-header">
+                <button type="button" class="close cancelar" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                <h4 class="modal-title" id="myModalLabel2">Nuevo Usuario</h4>
+            </div>
+            <form id="formCuenta">
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row centrar">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="control-label">Usuario</label>
+                                    </div>
+                                    <div class="row">
+                                        <input id="nombre" name="Nombre" class="form-control" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row centrar">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="control-label">Contraseña</label>
+                                    </div>
+                                    <div class="row">
+                                        <input id="contraseña" name="Contrasena" class="form-control" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default cancelar" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="Ingresar" data-url="@Url.Action("Ingresar","Home")"></div>
+<script>
+    function login() {
+        var usuario = document.getElementById('usuario').value;
+        var password = document.getElementById('password').value;
+        var ruta = $('#Ingresar').attr('data-url');
+        $.ajax({
+            url: $('#Ingresar').attr('data-url'),
+            type: 'POST',
+            data: { usuario: usuario, password: password },
+            success: function (resultado) {
+                debugger;
+                if (resultado.result === true) {
+                    window.location.replace(resultado.url);
+                }
+                else {
+                    alert('No existe el usuario');
+                }
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function registrar() {
+
+    }
+</script>
