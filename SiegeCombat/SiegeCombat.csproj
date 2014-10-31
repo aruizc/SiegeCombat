@@ -183,6 +183,7 @@
     <Content Include="Content\imagenes\imagenesFondos\mapa-del-mundoAntiguo.jpg" />
     <Content Include="Content\imagenes\imagenesFondos\MundoAntiguo.jpg" />
     <Content Include="Content\imagenes\imagenesFondos\papiroFomdo.jpg" />
+    <Content Include="Content\imagenes\imagenesFondos\pasto.png" />
     <Content Include="Content\imagenes\Joystick.png" />
     <Content Include="Content\imagenes\Logo3.png" />
     <Content Include="Content\imagenes\Mexico.png" />
@@ -266,6 +267,7 @@
       <DependentUpon>Modelos.edmx</DependentUpon>
       <LastGenOutput>Modelos.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\Custom.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

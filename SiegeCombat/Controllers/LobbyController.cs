@@ -58,7 +58,7 @@ namespace SiegeCombat.Controllers
                 Invitaciones invitacion = null;
                 invitacion = bd.Invitaciones.Where(i => i.IdOponente == usuario.IdJugador && i.Estatus == 1).First();
                 Session["Invitacion"] = invitacion;
-                return Json(new { result = true });
+                return Json(new { result = true, url = Url.Action("Index", "Juego") });
             }
             catch (Exception ex)
             {
@@ -93,7 +93,35 @@ namespace SiegeCombat.Controllers
 
         public ActionResult Jugar()
         {
-            return Json(new { result = true, url = Url.Action("Index", "Login") });
+            Invitaciones invitacion = (Invitaciones)Session["Invitacion"];
+            Usuario usuario = (Usuario)Session["Usuario"];
+            Jugador jugador = (Jugador)Session["Jugador"];
+            jugador.Estatus = "JUAGANDO";
+
+            Partida partida = new Partida();
+            partida.Fecha = DateTime.Now;
+            partida.IdJugadorUno = jugador.IdJugador;
+            partida.IdJugadorDos = (int)invitacion.IdHost;
+
+            bd.Partida.Add(partida);
+            bd.Entry(jugador).State = System.Data.EntityState.Modified;
+            bd.SaveChanges();
+            return Json(new { result = true, url = Url.Action("Index", "Juego") });
+        }
+
+        public ActionResult Cancelar() {
+            try
+            {
+                Invitaciones invitacion = (Invitaciones)Session["Invitacion"];
+                invitacion.Estatus = 0;
+                bd.Entry(invitacion).State = System.Data.EntityState.Modified;
+                bd.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(false);
+            }
+            return Json(new { result = true });
         }
     }
 }
