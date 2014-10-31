@@ -16,13 +16,20 @@ namespace SiegeCombat.Controllers
         public ActionResult Index()
         {
             Usuario usuario = (Usuario)Session["Usuario"];
-            List<Jugador> jugadoresConectados = bd.Jugador.Where(j => j.Estatus == "CONECTADO" && j.IdJugador != usuario.IdJugador).ToList();
+            List<Jugador> jugadoresConectados = bd.Jugador.Where(j => (j.Estatus == "CONECTADO" || j.Estatus == "JUGANDO") && j.IdJugador != usuario.IdJugador).ToList();
             ViewBag.jugadores = jugadoresConectados;
             Jugador jugador = bd.Jugador.Find(usuario.IdJugador);
             List<Jugador> topTen = bd.Jugador.OrderByDescending(j => j.EXP).Take(10).ToList();
             ViewBag.top = topTen;
             return View(jugador);
             
+        }
+
+        public ActionResult Cargar() 
+        {
+            Usuario usuario = (Usuario)Session["Usuario"];
+            List<Jugador> jugadoresConectados = bd.Jugador.Where(j => j.Estatus == "CONECTADO" || j.Estatus == "JUGANDO" && j.IdJugador != usuario.IdJugador).ToList();
+            return Json(jugadoresConectados);
         }
 
     }
