@@ -27,10 +27,17 @@ namespace SiegeCombat.Controllers
             {
                 Usuario user = null;
                 user = bd.Usuario.Where(u => u.Nombre == usuario && u.Contraseña == password).First();
-                if(user != null)                   
+                if (user != null)
+                {
+                    Jugador jugador = bd.Jugador.Find(user.IdJugador);
+                    jugador.Estatus = "CONECTADO";
+                    bd.Entry(jugador).State = System.Data.EntityState.Modified;
+                    bd.SaveChanges();
+                    Session["Usuario"] = user;
                     return Json(new { result = true, url = Url.Action("Index", "Lobby") });
+                }
                 else
-                   return Json(new { result = false, url = "" });
+                    return Json(new { result = false, url = "" });
             }
             catch (Exception ex)
             {

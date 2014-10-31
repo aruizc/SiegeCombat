@@ -25,9 +25,10 @@ namespace SiegeCombat.Models
         public int EXP { get; set; }
         public Nullable<bool> Mejora1 { get; set; }
         public Nullable<bool> Mejora2 { get; set; }
-        public Nullable<int> Mejora3 { get; set; }
+        public Nullable<bool> Mejora3 { get; set; }
         public Nullable<int> Nivel { get; set; }
-        public Nullable<int> Estatus { get; set; }
+        public string Estatus { get; set; }
+        public string Nickname { get; set; }
     
         public virtual ICollection<Partida> Partida { get; set; }
         public virtual ICollection<Partida> Partida1 { get; set; }

@@ -170,6 +170,8 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\imagenes\Boo.png" />
+    <Content Include="Content\imagenes\España.png" />
     <Content Include="Content\imagenes\imagenesFondos\ariete.jpg" />
     <Content Include="Content\imagenes\imagenesFondos\Ariete2.jpg" />
     <Content Include="Content\imagenes\imagenesFondos\Catapulta.jpg" />
@@ -179,7 +181,11 @@
     <Content Include="Content\imagenes\imagenesFondos\mapa-del-mundoAntiguo.jpg" />
     <Content Include="Content\imagenes\imagenesFondos\MundoAntiguo.jpg" />
     <Content Include="Content\imagenes\imagenesFondos\papiroFomdo.jpg" />
+    <Content Include="Content\imagenes\Joystick.png" />
     <Content Include="Content\imagenes\Logo3.png" />
+    <Content Include="Content\imagenes\Mexico.png" />
+    <Content Include="Content\imagenes\NewZealand.png" />
+    <Content Include="Content\imagenes\Paper Mario.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />

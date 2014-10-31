@@ -24,9 +24,10 @@
           <Property Name="EXP" Type="int" Nullable="false" />
           <Property Name="Mejora1" Type="bit" />
           <Property Name="Mejora2" Type="bit" />
-          <Property Name="Mejora3" Type="int" />
+          <Property Name="Mejora3" Type="bit" />
           <Property Name="Nivel" Type="int" />
-          <Property Name="Estatus" Type="int" />
+          <Property Name="Estatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nickname" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Partida">
           <Key>
@@ -145,9 +146,10 @@
           <Property Name="EXP" Type="Int32" Nullable="false" />
           <Property Name="Mejora1" Type="Boolean" />
           <Property Name="Mejora2" Type="Boolean" />
-          <Property Name="Mejora3" Type="Int32" />
+          <Property Name="Mejora3" Type="Boolean" />
           <Property Name="Nivel" Type="Int32" />
-          <Property Name="Estatus" Type="Int32" />
+          <Property Name="Estatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nickname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Partida" Relationship="Self.FK_Partida_Jugador" FromRole="Jugador" ToRole="Partida" />
           <NavigationProperty Name="Partida1" Relationship="Self.FK_Partida_Jugador1" FromRole="Jugador" ToRole="Partida" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Jugador" FromRole="Jugador" ToRole="Usuario" />
@@ -276,6 +278,7 @@
                 <ScalarProperty Name="Mejora3" ColumnName="Mejora3" />
                 <ScalarProperty Name="Nivel" ColumnName="Nivel" />
                 <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="Nickname" ColumnName="Nickname" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
