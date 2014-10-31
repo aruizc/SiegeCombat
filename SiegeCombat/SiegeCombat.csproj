@@ -128,10 +128,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\Configuracion.cs" />
     <Compile Include="Controllers\JuegoController.cs" />
     <Compile Include="Controllers\LobbyController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PersonalizarController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -172,6 +172,7 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\imagenes\Aggre.png" />
     <Content Include="Content\imagenes\Boo.png" />
     <Content Include="Content\imagenes\España.png" />
     <Content Include="Content\imagenes\imagenesFondos\ariete.jpg" />
@@ -186,9 +187,12 @@
     <Content Include="Content\imagenes\imagenesFondos\pasto.png" />
     <Content Include="Content\imagenes\Joystick.png" />
     <Content Include="Content\imagenes\Logo3.png" />
+    <Content Include="Content\imagenes\Mangonel.png" />
     <Content Include="Content\imagenes\Mexico.png" />
     <Content Include="Content\imagenes\NewZealand.png" />
     <Content Include="Content\imagenes\Paper Mario.png" />
+    <Content Include="Content\imagenes\pasto.jpg" />
+    <Content Include="Content\imagenes\Torre.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -299,8 +303,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Lobby\Index.cshtml" />
-    <Content Include="Views\Configuracion\Index.cshtml" />
     <Content Include="Views\Juego\Index.cshtml" />
+    <Content Include="Views\Personalizar\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

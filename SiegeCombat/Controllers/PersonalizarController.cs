@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace SiegeCombat.Controllers
 {
-    public class Configuracion : Controller
+    public class PersonalizarController : Controller
     {
         //
-        // GET: /Configuracion/
+        // GET: /Personalizar/
 
         public ActionResult Index()
         {

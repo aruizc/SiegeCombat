@@ -55,10 +55,22 @@ namespace SiegeCombat.Controllers
             try
             {
                 Usuario usuario = (Usuario)Session["Usuario"];
-                Invitaciones invitacion = null;
-                invitacion = bd.Invitaciones.Where(i => i.IdOponente == usuario.IdJugador && i.Estatus == 1).First();
+                List<Invitaciones> invitacion = null;
+                invitacion = bd.Invitaciones.Where(i => i.IdOponente == usuario.IdJugador).ToList();
                 Session["Invitacion"] = invitacion;
-                return Json(new { result = true, url = Url.Action("Index", "Juego") });
+                bool valido = false;
+                foreach (Invitaciones i in invitacion)
+                {
+                    if (i.Estatus == 1)
+                    {
+                        DateTime ahora = DateTime.Now;
+                        TimeSpan tiempo = ahora - (DateTime)i.Fecha;
+                        int diferencia = tiempo.Minutes;
+                        if(diferencia <= 3)
+                            return Json(new { result = true, url = Url.Action("Index", "Juego") });
+                    }                        
+                }
+                return Json(new { result = valido, url = Url.Action("Index", "Juego") });
             }
             catch (Exception ex)
             {
@@ -112,7 +124,8 @@ namespace SiegeCombat.Controllers
         public ActionResult Cancelar() {
             try
             {
-                Invitaciones invitacion = (Invitaciones)Session["Invitacion"];
+                Invitaciones invitacionTemp = (Invitaciones)Session["Invitacion"];
+                Invitaciones invitacion = bd.Invitaciones.Find(invitacionTemp.IdInvitaciones);
                 invitacion.Estatus = 0;
                 bd.Entry(invitacion).State = System.Data.EntityState.Modified;
                 bd.SaveChanges();
