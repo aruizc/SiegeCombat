@@ -44,6 +44,64 @@ namespace SiegeCombat.Controllers
                 return Json(new { result = false, url = "" });
             }
         }
-        
+
+        public ActionResult Registrar(string contraseña,string nombre, string nickname, string correo)
+        {
+            try
+            {
+                Usuario usuario = new Usuario();
+                Jugador jugador = new Jugador();
+                usuario.Contraseña = contraseña;
+                usuario.Correo = correo;
+                usuario.Nombre = nombre;
+                jugador.EXP = 0;
+                jugador.Nickname = nickname;
+                jugador.Mejora1 = false;
+                jugador.Mejora2 = false;
+                jugador.Mejora3 = false;
+                jugador.Nivel = 1;
+                jugador.Estatus = "DESCONECTADO";
+
+                bd.Jugador.Add(jugador);
+                bd.Usuario.Add(usuario);
+                bd.SaveChanges();
+
+
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return Json(true);
+        }
+
+
+        public bool EnviaCorreo(string correo, string mensaje)
+        {
+            MailMessage _Correo = new MailMessage();
+            _Correo.From = new MailAddress("syronleon@gmail.com");
+            _Correo.To.Add(correo);
+            _Correo.Subject = "Ultimo Movimiento Bancario Realizado";
+            _Correo.Body = mensaje;
+            _Correo.IsBodyHtml = false;
+            _Correo.Priority = MailPriority.Normal;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Credentials = new NetworkCredential("syronleon@gmail.com", "9920147d");
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 25;
+            smtp.EnableSsl = true;
+            try
+            {
+                smtp.Send(_Correo);
+                _Correo.Dispose();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _Correo.Dispose();
+                return false;
+            }
+
+        }
     }
 }

@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="well login-box">
-                    <legend>Bienvenido a Siege Combat</legend>
+            <div class="well login-box" style="width:300px;margin-left:400px;margin-top:200px">
+                    <legend>Siege Combat</legend>
                     <div class="form-group">
                         <label for="username-email">Usuario</label>
                         <input value='' id="usuario" placeholder="Usuario" type="text" class="form-control" />
@@ -16,28 +16,28 @@
                     </div>
                     <div class="form-group text-center">
                         <button class="btn btn-danger btn-cancel-action" onclick="login();">Combatir</button>
-                        <button type="button" class="btn btn-primary" onclick="">Registrar</button>
+                        <button type="button" class="btn btn-primary" onclick="registrar();">Registrar</button>
                     </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="modalRegistrar" tabindex="-1" data-backdrop="static">
+<div class="modal fade" id="modalRegistro" tabindex="-1" data-backdrop="static">
     <div class="modal-dialog centrar">
         <div class="modal-content modalCita">
             <div class="modal-header">
                 <button type="button" class="close cancelar" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
                 <h4 class="modal-title" id="myModalLabel2">Nuevo Usuario</h4>
             </div>
-            <form id="formCuenta">
+            <form id="formRegistro">
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="row centrar">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="row">
-                                        <label class="control-label">Usuario</label>
+                                        <label class="control-label">Nombre</label>
                                     </div>
                                     <div class="row">
                                         <input id="nombre" name="Nombre" class="form-control" type="text" />
@@ -52,7 +52,31 @@
                                         <label class="control-label">Contraseña</label>
                                     </div>
                                     <div class="row">
-                                        <input id="contraseña" name="Contrasena" class="form-control" type="text" />
+                                        <input id="password" name="Contrasena" class="form-control" type="password" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row centrar">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="control-label">Nickname</label>
+                                    </div>
+                                    <div class="row">
+                                        <input id="nickname" name="nickname" class="form-control" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row centrar">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="control-label">Correo</label>
+                                    </div>
+                                    <div class="row">
+                                        <input id="corro" name="Correo" class="form-control" type="text" />
                                     </div>
                                 </div>
                             </div>
@@ -61,13 +85,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default cancelar" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn btn-primary" >Guardar</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
+<div id="Registrar" data-url="@Url.Action("Registrar","Login")"></div>
 <div id="Ingresar" data-url="@Url.Action("Ingresar","Login")"></div>
 <script>
     function login() {
@@ -94,6 +119,33 @@
     }
 
     function registrar() {
-
+        debugger;
+        $('#modalRegistro').modal('show');
     }
+
+    //Registrar usuario
+    $('#formRegistro').submit(function () {
+        var contraseña = $('#password').val;
+        var nombre = $('#nombre').val;
+        var nickname = $('#nickname').val;
+        var correo = $('#correo').val;
+        var url = $('#Registrar').attr('data-url');
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { contraseña : contraseña, nombre : nombre, nickname : nickname, correo : correo },
+            success: function (data) {
+                if (data === true) {
+                    alert("Creado correctamente");
+                }
+                else {
+                    
+                }
+            },
+            error: function (data) {
+               
+            }
+        });
+        return false;
+    });
 </script>
