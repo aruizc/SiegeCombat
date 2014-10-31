@@ -5,16 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="SiegeCombatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="DetallePartida">
+        <EntityType Name="Invitaciones">
           <Key>
-            <PropertyRef Name="IdDetalle" />
+            <PropertyRef Name="IdInvitaciones" />
           </Key>
-          <Property Name="IdDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Posicion" Type="nvarchar" MaxLength="50" />
-          <Property Name="Movimiento" Type="nvarchar" MaxLength="50" />
-          <Property Name="IdJugador" Type="int" />
-          <Property Name="Resultado" Type="nvarchar" MaxLength="250" />
-          <Property Name="IdPartida" Type="int" Nullable="false" />
+          <Property Name="IdInvitaciones" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdHost" Type="int" />
+          <Property Name="IdOponente" Type="int" />
+          <Property Name="Respuesta" Type="int" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="Estatus" Type="int" />
         </EntityType>
         <EntityType Name="Jugador">
           <Key>
@@ -26,8 +26,9 @@
           <Property Name="Mejora2" Type="bit" />
           <Property Name="Mejora3" Type="bit" />
           <Property Name="Nivel" Type="int" />
-          <Property Name="Estatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="Estatus" Type="nvarchar" MaxLength="200" />
           <Property Name="Nickname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Imagen" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Partida">
           <Key>
@@ -51,15 +52,15 @@
           <Property Name="Contraseña" Type="nvarchar" MaxLength="50" />
           <Property Name="IdJugador" Type="int" />
         </EntityType>
-        <Association Name="FK_DetallePartida_Partida">
-          <End Role="Partida" Type="Self.Partida" Multiplicity="1" />
-          <End Role="DetallePartida" Type="Self.DetallePartida" Multiplicity="*" />
+        <Association Name="FK_Invitaciones_Jugador">
+          <End Role="Jugador" Type="Self.Jugador" Multiplicity="0..1" />
+          <End Role="Invitaciones" Type="Self.Invitaciones" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Partida">
-              <PropertyRef Name="IdPartida" />
+            <Principal Role="Jugador">
+              <PropertyRef Name="IdJugador" />
             </Principal>
-            <Dependent Role="DetallePartida">
-              <PropertyRef Name="IdPartida" />
+            <Dependent Role="Invitaciones">
+              <PropertyRef Name="IdHost" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -100,13 +101,13 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SiegeCombatModelStoreContainer">
-          <EntitySet Name="DetallePartida" EntityType="Self.DetallePartida" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invitaciones" EntityType="Self.Invitaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Jugador" EntityType="Self.Jugador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Partida" EntityType="Self.Partida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_DetallePartida_Partida" Association="Self.FK_DetallePartida_Partida">
-            <End Role="Partida" EntitySet="Partida" />
-            <End Role="DetallePartida" EntitySet="DetallePartida" />
+          <AssociationSet Name="FK_Invitaciones_Jugador" Association="Self.FK_Invitaciones_Jugador">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="Invitaciones" EntitySet="Invitaciones" />
           </AssociationSet>
           <AssociationSet Name="FK_Partida_Jugador" Association="Self.FK_Partida_Jugador">
             <End Role="Jugador" EntitySet="Jugador" />
@@ -126,17 +127,17 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SiegeCombatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="DetallePartida">
+        <EntityType Name="Invitaciones">
           <Key>
-            <PropertyRef Name="IdDetalle" />
+            <PropertyRef Name="IdInvitaciones" />
           </Key>
-          <Property Name="IdDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Posicion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Movimiento" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IdJugador" Type="Int32" />
-          <Property Name="Resultado" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="IdPartida" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Partida" Relationship="Self.FK_DetallePartida_Partida" FromRole="DetallePartida" ToRole="Partida" />
+          <Property Name="IdInvitaciones" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdHost" Type="Int32" />
+          <Property Name="IdOponente" Type="Int32" />
+          <Property Name="Respuesta" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="Estatus" Type="Int32" />
+          <NavigationProperty Name="Jugador" Relationship="Self.FK_Invitaciones_Jugador" FromRole="Invitaciones" ToRole="Jugador" />
         </EntityType>
         <EntityType Name="Jugador">
           <Key>
@@ -148,8 +149,10 @@
           <Property Name="Mejora2" Type="Boolean" />
           <Property Name="Mejora3" Type="Boolean" />
           <Property Name="Nivel" Type="Int32" />
-          <Property Name="Estatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Estatus" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Nickname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Imagen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Invitaciones" Relationship="Self.FK_Invitaciones_Jugador" FromRole="Jugador" ToRole="Invitaciones" />
           <NavigationProperty Name="Partida" Relationship="Self.FK_Partida_Jugador" FromRole="Jugador" ToRole="Partida" />
           <NavigationProperty Name="Partida1" Relationship="Self.FK_Partida_Jugador1" FromRole="Jugador" ToRole="Partida" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Jugador" FromRole="Jugador" ToRole="Usuario" />
@@ -165,7 +168,6 @@
           <Property Name="IdJugadorUno" Type="Int32" Nullable="false" />
           <Property Name="IdJugadorDos" Type="Int32" Nullable="false" />
           <Property Name="IdDetalle" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="DetallePartida" Relationship="Self.FK_DetallePartida_Partida" FromRole="Partida" ToRole="DetallePartida" />
           <NavigationProperty Name="Jugador" Relationship="Self.FK_Partida_Jugador" FromRole="Partida" ToRole="Jugador" />
           <NavigationProperty Name="Jugador1" Relationship="Self.FK_Partida_Jugador1" FromRole="Partida" ToRole="Jugador" />
         </EntityType>
@@ -180,15 +182,15 @@
           <Property Name="IdJugador" Type="Int32" />
           <NavigationProperty Name="Jugador" Relationship="Self.FK_Usuario_Jugador" FromRole="Usuario" ToRole="Jugador" />
         </EntityType>
-        <Association Name="FK_DetallePartida_Partida">
-          <End Role="Partida" Type="Self.Partida" Multiplicity="1" />
-          <End Role="DetallePartida" Type="Self.DetallePartida" Multiplicity="*" />
+        <Association Name="FK_Invitaciones_Jugador">
+          <End Role="Jugador" Type="Self.Jugador" Multiplicity="0..1" />
+          <End Role="Invitaciones" Type="Self.Invitaciones" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Partida">
-              <PropertyRef Name="IdPartida" />
+            <Principal Role="Jugador">
+              <PropertyRef Name="IdJugador" />
             </Principal>
-            <Dependent Role="DetallePartida">
-              <PropertyRef Name="IdPartida" />
+            <Dependent Role="Invitaciones">
+              <PropertyRef Name="IdHost" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -229,13 +231,13 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SiegeCombatEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="DetallePartida" EntityType="Self.DetallePartida" />
+          <EntitySet Name="Invitaciones" EntityType="Self.Invitaciones" />
           <EntitySet Name="Jugador" EntityType="Self.Jugador" />
           <EntitySet Name="Partida" EntityType="Self.Partida" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" />
-          <AssociationSet Name="FK_DetallePartida_Partida" Association="Self.FK_DetallePartida_Partida">
-            <End Role="Partida" EntitySet="Partida" />
-            <End Role="DetallePartida" EntitySet="DetallePartida" />
+          <AssociationSet Name="FK_Invitaciones_Jugador" Association="Self.FK_Invitaciones_Jugador">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="Invitaciones" EntitySet="Invitaciones" />
           </AssociationSet>
           <AssociationSet Name="FK_Partida_Jugador" Association="Self.FK_Partida_Jugador">
             <End Role="Jugador" EntitySet="Jugador" />
@@ -256,15 +258,15 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SiegeCombatModelStoreContainer" CdmEntityContainer="SiegeCombatEntities">
-          <EntitySetMapping Name="DetallePartida">
-            <EntityTypeMapping TypeName="SiegeCombatModel.DetallePartida">
-              <MappingFragment StoreEntitySet="DetallePartida">
-                <ScalarProperty Name="IdDetalle" ColumnName="IdDetalle" />
-                <ScalarProperty Name="Posicion" ColumnName="Posicion" />
-                <ScalarProperty Name="Movimiento" ColumnName="Movimiento" />
-                <ScalarProperty Name="IdJugador" ColumnName="IdJugador" />
-                <ScalarProperty Name="Resultado" ColumnName="Resultado" />
-                <ScalarProperty Name="IdPartida" ColumnName="IdPartida" />
+          <EntitySetMapping Name="Invitaciones">
+            <EntityTypeMapping TypeName="SiegeCombatModel.Invitaciones">
+              <MappingFragment StoreEntitySet="Invitaciones">
+                <ScalarProperty Name="IdInvitaciones" ColumnName="IdInvitaciones" />
+                <ScalarProperty Name="IdHost" ColumnName="IdHost" />
+                <ScalarProperty Name="IdOponente" ColumnName="IdOponente" />
+                <ScalarProperty Name="Respuesta" ColumnName="Respuesta" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -279,6 +281,7 @@
                 <ScalarProperty Name="Nivel" ColumnName="Nivel" />
                 <ScalarProperty Name="Estatus" ColumnName="Estatus" />
                 <ScalarProperty Name="Nickname" ColumnName="Nickname" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

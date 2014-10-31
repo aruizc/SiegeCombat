@@ -14,11 +14,6 @@ namespace SiegeCombat.Models
     
     public partial class Partida
     {
-        public Partida()
-        {
-            this.DetallePartida = new HashSet<DetallePartida>();
-        }
-    
         public int IdPartida { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
         public Nullable<int> IdGanador { get; set; }
@@ -27,7 +22,6 @@ namespace SiegeCombat.Models
         public int IdJugadorDos { get; set; }
         public int IdDetalle { get; set; }
     
-        public virtual ICollection<DetallePartida> DetallePartida { get; set; }
         public virtual Jugador Jugador { get; set; }
         public virtual Jugador Jugador1 { get; set; }
     }

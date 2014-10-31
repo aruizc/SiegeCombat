@@ -16,6 +16,7 @@ namespace SiegeCombat.Models
     {
         public Jugador()
         {
+            this.Invitaciones = new HashSet<Invitaciones>();
             this.Partida = new HashSet<Partida>();
             this.Partida1 = new HashSet<Partida>();
             this.Usuario = new HashSet<Usuario>();
@@ -29,7 +30,9 @@ namespace SiegeCombat.Models
         public Nullable<int> Nivel { get; set; }
         public string Estatus { get; set; }
         public string Nickname { get; set; }
+        public string Imagen { get; set; }
     
+        public virtual ICollection<Invitaciones> Invitaciones { get; set; }
         public virtual ICollection<Partida> Partida { get; set; }
         public virtual ICollection<Partida> Partida1 { get; set; }
         public virtual ICollection<Usuario> Usuario { get; set; }

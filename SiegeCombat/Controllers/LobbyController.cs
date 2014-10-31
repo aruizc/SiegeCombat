@@ -32,5 +32,22 @@ namespace SiegeCombat.Controllers
             return Json(jugadoresConectados);
         }
 
+        public ActionResult CerrarSesion()
+        {
+            try
+            {
+                Usuario usuario = (Usuario)Session["Usuario"];
+                Jugador jugador = bd.Jugador.Find(usuario.IdJugador);
+                jugador.Estatus = "DESCONECTADO";
+                bd.Entry(jugador).State = System.Data.EntityState.Modified;
+                bd.SaveChanges();
+                Session["Usuario"] = null;
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return Json(new { result = true, url = Url.Action("Index", "Login") });
+        }
     }
 }

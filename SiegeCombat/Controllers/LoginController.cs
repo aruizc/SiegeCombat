@@ -63,6 +63,8 @@ namespace SiegeCombat.Controllers
                 jugador.Estatus = "DESCONECTADO";
 
                 bd.Jugador.Add(jugador);
+                bd.SaveChanges();
+                usuario.IdJugador = jugador.IdJugador;
                 bd.Usuario.Add(usuario);
                 bd.SaveChanges();
 

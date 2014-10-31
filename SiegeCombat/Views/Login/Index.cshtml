@@ -6,11 +6,11 @@
         background-image: url("~/Content/imagenes/mapa-del-mundoAntiguo.jpg");
     }
 </style>
-
+<!--Login-->
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <div class="well login-box" style="width:300px;margin-left:400px;margin-top:200px">
+        <div class="col-md-6">
+            <div class="well login-box" style="width:300px;margin-left:200px;margin-top:200px">
                     <legend>Siege Combat</legend>
                     <div class="form-group">
                         <label for="username-email">Usuario</label>
@@ -22,81 +22,56 @@
                     </div>
                     <div class="form-group text-center">
                         <button class="btn btn-danger btn-cancel-action" onclick="login();">Combatir</button>
-                        <button type="button" class="btn btn-primary" onclick="registrar();">Registrar</button>
                     </div>
             </div>
         </div>
+        <!--Registro-->
+        <div class="col-md-6">
+                    <div class="well login-box" style="width:300px;margin-left:50px;margin-top:200px">
+                        <legend>¡Alistate Soldado!</legend>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="control-label">Nombre</label>
+                            </div>
+                            <div class="row">
+                                <input id="nombre" name="Nombre" class="form-control" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="control-label">Contraseña</label>
+                            </div>
+                            <div class="row">
+                                <input id="contrasena" name="Contrasena" class="form-control" type="password" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="control-label">Nickname</label>
+                            </div>
+                            <div class="row">
+                                <input id="nickname" name="nickname" class="form-control" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="control-label">Correo</label>
+                            </div>
+                            <div class="row">
+                                <input id="correo" name="Correo" class="form-control" type="email" />
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <button class="btn btn-warning" onclick="registrar();">Alistate!</button>
+                        </div>
+                    </div>
+                </div>
+        <!--FIN Registro-->
     </div>
 </div>
+<!--FIN Login-->
 
-<div class="modal fade" id="modalRegistro" tabindex="-1" data-backdrop="static">
-    <div class="modal-dialog centrar">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close cancelar" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-                <h4 class="modal-title" id="myModalLabel2">Nuevo Usuario</h4>
-            </div>
-            <form id="formRegistro">
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row centrar">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <label class="control-label">Nombre</label>
-                                    </div>
-                                    <div class="row">
-                                        <input id="nombre" name="Nombre" class="form-control" type="text" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row centrar">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <label class="control-label">Contraseña</label>
-                                    </div>
-                                    <div class="row">
-                                        <input id="password" name="Contrasena" class="form-control" type="password" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row centrar">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <label class="control-label">Nickname</label>
-                                    </div>
-                                    <div class="row">
-                                        <input id="nickname" name="nickname" class="form-control" type="text" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row centrar">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <label class="control-label">Correo</label>
-                                    </div>
-                                    <div class="row">
-                                        <input id="corro" name="Correo" class="form-control" type="text" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default cancelar" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" >Guardar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+
 
 <video controls="" autoplay="autoplay" loop="loop" name="media" hidden="hidden">
  <source src="http://www.sonidosmp3gratis.com/sounds/tambor-militar.mp3" type="audio/mpeg" />
@@ -133,17 +108,13 @@
         });
     }
 
+    //Registrar usuario
     function registrar() {
         debugger;
-        $('#modalRegistro').modal('show');
-    }
-
-    //Registrar usuario
-    $('#formRegistro').submit(function () {
-        var contraseña = $('#password').val;
-        var nombre = $('#nombre').val;
-        var nickname = $('#nickname').val;
-        var correo = $('#correo').val;
+        var contraseña = document.getElementById('contrasena').value;
+        var nombre = document.getElementById('nombre').value;
+        var nickname = document.getElementById('nickname').value;
+        var correo = document.getElementById('correo').value;
         var url = $('#Registrar').attr('data-url');
         $.ajax({
             url: url,
@@ -162,5 +133,5 @@
             }
         });
         return false;
-    });
+    };
 </script>

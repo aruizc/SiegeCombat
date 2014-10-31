@@ -25,7 +25,7 @@ namespace SiegeCombat.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<DetallePartida> DetallePartida { get; set; }
+        public DbSet<Invitaciones> Invitaciones { get; set; }
         public DbSet<Jugador> Jugador { get; set; }
         public DbSet<Partida> Partida { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
