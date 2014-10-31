@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Juego";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+            <th>D</th>
+            <th>E</th>
+        </tr>
+    </thead>
+    <tbody id="tblJugadores">
+        @for (int i = 1; i < 5 ;i++ )
+        {
+            <tr><td>@i.ToString()</td><td></td><td></td><td></td><td></td></tr>
+        }
+    </tbody>
+</table>

@@ -49,5 +49,51 @@ namespace SiegeCombat.Controllers
             }
             return Json(new { result = true, url = Url.Action("Index", "Login") });
         }
+
+        public ActionResult ObtenerInvitaciones()
+        {
+            try
+            {
+                Usuario usuario = (Usuario)Session["Usuario"];
+                Invitaciones invitacion = null;
+                invitacion = bd.Invitaciones.Where(i => i.IdOponente == usuario.IdJugador && i.Estatus == 1).First();
+                Session["Invitacion"] = invitacion;
+                return Json(new { result = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(false);
+            }
+            
+        }
+
+        public ActionResult HacerInvitacion(int oponente) 
+        {
+            try
+            {
+                Invitaciones invitacion = new Invitaciones();
+                Usuario usuario = (Usuario)Session["Usuario"];
+                Jugador jugador = bd.Jugador.Find(usuario.IdJugador);
+
+                invitacion.Estatus = 1;
+                invitacion.Fecha = DateTime.Now;
+                invitacion.IdHost = jugador.IdJugador;
+                invitacion.IdOponente = oponente;
+
+                bd.Invitaciones.Add(invitacion);
+                bd.SaveChanges();
+
+                return Json(new { result = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(false);
+            }
+        }
+
+        public ActionResult Jugar()
+        {
+            return Json(new { result = true, url = Url.Action("Index", "Login") });
+        }
     }
 }

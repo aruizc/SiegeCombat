@@ -61,6 +61,7 @@ namespace SiegeCombat.Controllers
                 jugador.Mejora3 = false;
                 jugador.Nivel = 1;
                 jugador.Estatus = "DESCONECTADO";
+                jugador.Imagen = "Joystick.png";
 
                 bd.Jugador.Add(jugador);
                 bd.SaveChanges();
