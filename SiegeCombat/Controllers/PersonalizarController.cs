@@ -24,9 +24,9 @@ namespace SiegeCombat.Controllers
              {
                  Jugador jugador = (Jugador)Session["Jugador"];
                  jugador.Imagen = logo;
-
                  bd.Entry(jugador).State = System.Data.EntityState.Modified;
                  bd.SaveChanges();
+                 return Json(true);
              }
              catch (Exception ex)
              {
@@ -41,10 +41,11 @@ namespace SiegeCombat.Controllers
                 Jugador jugador = (Jugador)Session["Jugador"];
                 bd.Entry(jugador).State = System.Data.EntityState.Modified;
                 bd.SaveChanges();
+                return Json(true);
             }
             catch (Exception ex)
             {
-                
+                return Json(false);
             }
         }
     }
