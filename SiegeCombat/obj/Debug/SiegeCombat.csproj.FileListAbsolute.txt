@@ -32,3 +32,16 @@ C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeComb
 C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeCombat\SiegeCombat\obj\Debug\SiegeCombat.csprojResolveAssemblyReference.cache
 C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeCombat\SiegeCombat\obj\Debug\SiegeCombat.dll
 C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeCombat\SiegeCombat\obj\Debug\SiegeCombat.pdb
+C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeCombat\SiegeCombat\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeCombat\SiegeCombat\bin\Microsoft.Owin.dll
+C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeCombat\SiegeCombat\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeCombat\SiegeCombat\bin\Microsoft.Owin.Security.dll
+C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeCombat\SiegeCombat\bin\Owin.dll
+C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeCombat\SiegeCombat\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeCombat\SiegeCombat\bin\Microsoft.Owin.xml
+C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeCombat\SiegeCombat\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeCombat\SiegeCombat\bin\Microsoft.Owin.Security.xml
+C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeCombat\SiegeCombat\bin\es\Microsoft.AspNet.SignalR.Core.resources.dll
+C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeCombat\SiegeCombat\bin\es\Microsoft.Owin.resources.dll
+C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeCombat\SiegeCombat\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+C:\Users\AngeldeJesús\Documents\7mo Semestre\Desarrollo de Software 1\SiegeCombat\SiegeCombat\bin\es\Microsoft.Owin.Security.resources.dll

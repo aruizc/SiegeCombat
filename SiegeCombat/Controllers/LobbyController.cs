@@ -67,7 +67,7 @@ namespace SiegeCombat.Controllers
                         TimeSpan tiempo = ahora - (DateTime)i.Fecha;
                         int diferencia = tiempo.Minutes;
                         if(diferencia <= 3)
-                            return Json(new { result = true, url = Url.Action("Index", "Juego") });
+                            return Json(new { result = true, url = Url.Action("Index", "Juego"), id = i.IdInvitaciones });
                     }                        
                 }
                 return Json(new { result = valido, url = Url.Action("Index", "Juego") });
@@ -121,11 +121,10 @@ namespace SiegeCombat.Controllers
             return Json(new { result = true, url = Url.Action("Index", "Juego") });
         }
 
-        public ActionResult Cancelar() {
+        public ActionResult Cancelar(int idInvitacion) {
             try
             {
-                Invitaciones invitacionTemp = (Invitaciones)Session["Invitacion"];
-                Invitaciones invitacion = bd.Invitaciones.Find(invitacionTemp.IdInvitaciones);
+                Invitaciones invitacion = bd.Invitaciones.Find(idInvitacion);
                 invitacion.Estatus = 0;
                 bd.Entry(invitacion).State = System.Data.EntityState.Modified;
                 bd.SaveChanges();
