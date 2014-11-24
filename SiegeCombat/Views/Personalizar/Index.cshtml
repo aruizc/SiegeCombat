@@ -5,9 +5,9 @@
 <div class="panel panel-default col-md-6">
     <div class="panel-heading">Configuracion Usuario</div>
     <div class="panel-body">
-        <img src="~/Content/imagenes/Paper%20Mario.png" />
+        <img src="~/Content/imagenes/Mario.png" id="ejemplo"/>
      <label style="font-size:14px">Cambiar Imagen de Jugador</label>       
-        <select id="combo" class="form-control" onchange="cambiar();">
+        <select id="combo" class="form-control" onchange="cambiarImagen();">
             <option id="Mario" value="Mario">Mario</option>
             <option id="Mexico" value="Mexico">México</option>
             <option id="Boo" value="Boo">Boo</option>
@@ -16,11 +16,55 @@
         </select>
      <br />
         <label style="font-size:14px">Nickname</label>
-        <input type="text" name="name" value=" " class="form-control"/>
+        <input type="text" name="name" id="nickname" class="form-control"/>
+        <input type="button" id="btnNickname" onclick="cambiarNickname();" value="Cambiar Nickname" class="btn-primary" />
     </div>
 </div>
+
+<div id="Imagen" data-url="@Url.Action("CambiarImagen","Personalizar")"></div>
+<div id="Nickname" data-url="@Url.Action("CambiarNickname","Personalizar")"></div>
+
 <script>
-    function cambiar() {
-        $("#imagen").attr('src') = (document.getElementById('combo').value + ".png");
+    function cambiarImagen() {
+        debugger;
+        var imagen = $("#combo").val();
+        $("#ejemplo").attr("src","/Content/imagenes/" + imagen + ".png");
+        $.ajax({
+            url: $('#Imagen').attr('data-url'),
+            type: 'POST',
+            data: {imagen : imagen},
+            success: function (resultado) {
+                debugger;
+                if (resultado === true) {
+                    alert("Actualizado correctamente");
+                }
+                else {
+                    alert('Error al actualizar');
+                }
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function cambiarNickname() {       
+        var nickname = $("#nickname").val();
+        debugger;
+        $.ajax({
+            url: $('#Nickname').attr('data-url'),
+            type: 'POST',
+            data: {nickname: nickname},
+            success: function (resultado) {
+                debugger;
+                if (resultado === true) {
+                    alert("Nickname actualizado correctamente");
+                }
+                else {
+                    alert('Error al actualizar');
+                }
+            },
+            error: function () {
+            }
+        });
     }
 </script>

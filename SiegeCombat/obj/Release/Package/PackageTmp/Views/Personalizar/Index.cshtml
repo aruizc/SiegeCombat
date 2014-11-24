@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="panel panel-default col-md-6">
+    <div class="panel-heading">Configuracion Usuario</div>
+    <div class="panel-body">
+        <img src="~/Content/imagenes/Paper%20Mario.png" />
+     <label style="font-size:14px">Cambiar Imagen de Jugador</label>       
+        <select id="combo" class="form-control" onchange="cambiar();">
+            <option id="Mario" value="Mario">Mario</option>
+            <option id="Mexico" value="Mexico">México</option>
+            <option id="Boo" value="Boo">Boo</option>
+            <option id="NewZealand" value="NewZealand">Nueva Zelanda</option>
+            <option id="España" value="España">España</option>
+        </select>
+     <br />
+        <label style="font-size:14px">Nickname</label>
+        <input type="text" name="name" value=" " class="form-control"/>
+    </div>
+</div>
+<script>
+    function cambiar() {
+        $("#imagen").attr('src') = (document.getElementById('combo').value + ".png");
+    }
+</script>

@@ -34,6 +34,7 @@ namespace SiegeCombat.Controllers
                     bd.Entry(jugador).State = System.Data.EntityState.Modified;
                     bd.SaveChanges();
                     Session["Usuario"] = user;
+                    Session["Jugador"] = jugador;
                     return Json(new { result = true, url = Url.Action("Index", "Lobby") });
                 }
                 else

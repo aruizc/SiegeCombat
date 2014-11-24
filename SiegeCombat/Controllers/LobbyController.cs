@@ -56,7 +56,7 @@ namespace SiegeCombat.Controllers
             {
                 Usuario usuario = (Usuario)Session["Usuario"];
                 List<Invitaciones> invitacion = null;
-                invitacion = bd.Invitaciones.Where(i => i.IdOponente == usuario.IdJugador).ToList();
+                invitacion = bd.Invitaciones.Where(i => i.IdOponente == usuario.IdJugador && i.Estatus != 0).ToList();
                 Session["Invitacion"] = invitacion;
                 bool valido = false;
                 foreach (Invitaciones i in invitacion)
@@ -108,7 +108,7 @@ namespace SiegeCombat.Controllers
             Invitaciones invitacion = (Invitaciones)Session["Invitacion"];
             Usuario usuario = (Usuario)Session["Usuario"];
             Jugador jugador = (Jugador)Session["Jugador"];
-            jugador.Estatus = "JUAGANDO";
+            jugador.Estatus = "JUGANDO";
 
             Partida partida = new Partida();
             partida.Fecha = DateTime.Now;
@@ -121,10 +121,11 @@ namespace SiegeCombat.Controllers
             return Json(new { result = true, url = Url.Action("Index", "Juego") });
         }
 
-        public ActionResult Cancelar(int idInvitacion) {
+        public ActionResult Cancelar() {
             try
             {
-                Invitaciones invitacion = bd.Invitaciones.Find(idInvitacion);
+                List<Invitaciones> lstInvitacion = (List<Invitaciones>)Session["Invitacion"];
+                Invitaciones invitacion = bd.Invitaciones.Find(lstInvitacion[0].IdInvitaciones);
                 invitacion.Estatus = 0;
                 bd.Entry(invitacion).State = System.Data.EntityState.Modified;
                 bd.SaveChanges();

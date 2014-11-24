@@ -18,12 +18,13 @@ namespace SiegeCombat.Controllers
         }
 
 
-        public ActionResult CambiarImagen(string logo)
+        public ActionResult CambiarImagen(string imagen)
          {
              try
              {
-                 Jugador jugador = (Jugador)Session["Jugador"];
-                 jugador.Imagen = logo;
+                 Jugador temp = (Jugador)Session["Jugador"];
+                 Jugador jugador = bd.Jugador.Find(temp.IdJugador);
+                 jugador.Imagen = imagen + ".png";
                  bd.Entry(jugador).State = System.Data.EntityState.Modified;
                  bd.SaveChanges();
                  return Json(true);
@@ -38,7 +39,9 @@ namespace SiegeCombat.Controllers
         {
             try
             {
-                Jugador jugador = (Jugador)Session["Jugador"];
+                Jugador temp = (Jugador)Session["Jugador"];
+                Jugador jugador = bd.Jugador.Find(temp.IdJugador);
+                jugador.Nickname = nickname;
                 bd.Entry(jugador).State = System.Data.EntityState.Modified;
                 bd.SaveChanges();
                 return Json(true);
