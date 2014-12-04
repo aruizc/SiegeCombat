@@ -1,5 +1,141 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Siege Combat | Tienda";
 }
 
-<h2>Index</h2>
+
+<div class="row col-md-3" style="background-color:firebrick; height:800px">
+    @if (Model.Imagen == "Joystick.png")
+    {
+        <img src="~/Content/imagenes/Joystick.png" style="margin-left: 60px;margin-top: 20px;" />
+    }
+    else if (Model.Imagen == "Boo.png")
+    {
+        <img src="~/Content/imagenes/Boo.png" style="margin-left: 60px;margin-top: 20px;" />
+    }
+    else if (Model.Imagen == "Mexico.png")
+    {
+        <img src="~/Content/imagenes/Mexico.png" style="margin-left: 60px;margin-top: 20px;" />
+    }
+    else if (Model.Imagen == "España.png")
+    {
+        <img src="~/Content/imagenes/España.png" style="margin-left: 60px;margin-top: 20px;" />
+    }
+    else if (Model.Imagen == "NewZealand.png")
+    {
+        <img src="~/Content/imagenes/NewZealand.png" style="margin-left: 60px;margin-top: 20px;" />
+    }
+    else if (Model.Imagen == "Mario.png")
+    {
+        <img src="~/Content/imagenes/Mario.png" style="margin-left: 60px;margin-top: 20px;" />
+    }
+    <div><label style="font-size:18px;color:white;margin-left:90px;">@Model.Nickname</label></div>
+    <div><label style="font-size:14px;color:white;margin-left:100px;margin-top:20px">EXP</label></div>
+    <div>
+        @if (Model.EXP < 500)
+        {
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="@Model.EXP" aria-valuemin="0" aria-valuemax="1000" style="width: 30%;">
+                    @Model.EXP
+                </div>
+            </div>
+        }
+        else if (Model.EXP < 800)
+        {
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="@Model.EXP" aria-valuemin="0" aria-valuemax="1000" style="width: 50%;">
+                    @Model.EXP
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="@Model.EXP" aria-valuemin="0" aria-valuemax="1000" style="width: 80%;">
+                    @Model.EXP
+                </div>
+            </div>
+        }
+    </div>
+    <div><label style="font-size:14px;color:white;margin-left:100px;margin-top:20px">NIVEL</label></div>
+    <div>
+        @if (Model.Nivel == 1)
+        {
+            <div class="progress">
+                <div class="progress-bar-success" role="progressbar" aria-valuenow="@Model.Nivel" aria-valuemin="0" aria-valuemax="3" style="width: 30%;">
+                    @Model.Nivel
+                </div>
+            </div>
+        }
+        else if (Model.Nivel == 2)
+        {
+            <div class="progress">
+                <div class="progress-bar-success" role="progressbar" aria-valuenow="@Model.Nivel" aria-valuemin="0" aria-valuemax="3" style="width: 60%;">
+                    @Model.Nivel
+                </div>
+            </div>
+        }
+        else if (Model.Nivel == 3)
+        {
+            <div class="progress">
+                <div class="progress-bar-success" role="progressbar" aria-valuenow="@Model.Nivel" aria-valuemin="0" aria-valuemax="3" style="width: 100%;">
+                    @Model.Nivel
+                </div>
+            </div>
+        }
+    </div>
+    <br />
+    <input type="button" class="btn-danger" name="name" value="Cerrar Sesión" onclick="cerrarSesion()" />
+    <br />
+    <input type="button" name="name" value="Configuración" onclick="window.location.replace('/Personalizar')" class="btn-info" />
+    <br />
+    <input type="button" id="btnTienda" value="Regresar" onclick="window.location.replace('/Lobby')" class="btn-success" />
+</div>
+<div class="row col-md-6" style="background-color:white; height:1000px">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="M1">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#Mejora1" aria-expanded="true" aria-controls="Mejora1">
+                        Mejora de Experiencia 
+                    </a>
+                </h4>
+            </div>
+            <div id="Mejora1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="M1">
+                <div class="panel-body">
+                    <img src="~/Content/imagenes/Joystick.png" class="img-circle"/>Con esta mejora ganarás el doble de experiencia por partida.    
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="M2">
+                <h4 class="panel-title">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#Mejora2" aria-expanded="false" aria-controls="Mejora2">
+                        Mejora 2
+                    </a>
+                </h4>
+            </div>
+            <div id="Mejora2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="M2">
+                <div class="panel-body">
+                    <img src="~/Content/imagenes/Logo3.png" />Con esta mejora el primer turno atacaras doble.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="M3">
+                <h4 class="panel-title">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#Mejora3" aria-expanded="false" aria-controls="M3">
+                        Mejora 3
+                    </a>
+                </h4>
+            </div>
+            <div id="Mejora3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="M3">
+                <div class="panel-body">
+                    <img src="~/Content/imagenes/Mario.png" /> Con esta mejora puedes atacar doble en un turno durante la partida.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row col-md-3" style="background-color:darkgray;height:800px">
+    
+</div>

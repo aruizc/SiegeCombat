@@ -16,5 +16,18 @@ namespace SiegeCombat.Controllers
             return View();
         }
 
+        public ActionResult ComprarMejora(int mejora)
+        {
+            bool valido = false;
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+               
+            }
+            return null;
+        }
     }
 }
