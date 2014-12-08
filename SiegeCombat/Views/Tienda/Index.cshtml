@@ -103,7 +103,7 @@
             </div>
             <div id="Mejora1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="M1">
                 <div class="panel-body">
-                    <img src="~/Content/imagenes/Joystick.png" class="img-circle"/>Con esta mejora ganarás el doble de experiencia por partida.    
+                    <img src="~/Content/imagenes/Joystick.png" class="img-circle"/>Con esta mejora ganarás el doble de experiencia por partida.<input type="button" name="name" value="COMPRAR" onclick="comprar(this);" idMejora="1" />    
                 </div>
             </div>
         </div>
@@ -117,7 +117,7 @@
             </div>
             <div id="Mejora2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="M2">
                 <div class="panel-body">
-                    <img src="~/Content/imagenes/Logo3.png" />Con esta mejora el primer turno atacaras doble.
+                    <img src="~/Content/imagenes/Logo3.png" />Con esta mejora el primer turno atacaras doble.<input type="button" name="name" value="COMPRAR" onclick="comprar(this);" idMejora="2" />
                 </div>
             </div>
         </div>
@@ -131,7 +131,7 @@
             </div>
             <div id="Mejora3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="M3">
                 <div class="panel-body">
-                    <img src="~/Content/imagenes/Mario.png" /> Con esta mejora puedes atacar doble en un turno durante la partida.
+                    <img src="~/Content/imagenes/Mario.png" /> Con esta mejora puedes atacar doble en un turno durante la partida. <input type="button" name="name" value="COMPRAR" onclick="comprar(this);" idMejora="3" />
                 </div>
             </div>
         </div>
@@ -140,3 +140,30 @@
 <div class="row col-md-3" style="background-color:darkgray;height:800px">
     
 </div>
+
+<div id="Comprar" data-url="@Url.Action("ComprarMejora","Tienda")"></div>
+<div id="Cancelar" data-url="@Url.Action("Cancelar","Lobby")"></div>
+
+<script type="text/javascript">
+    function comprar(e) {
+        debugger;
+        var mejora = $(e).attr('idMejora');
+        $.ajax({
+            url: $('#Comprar').attr('data-url'),
+            type: 'POST',
+            data: { mejora : mejora },
+            success: function (resultado) {
+                debugger;
+                if (resultado.result === true) {
+                    alert("Has comprado la mejora!!");
+                }
+                else {
+                    alert('Error al comprar mejora');
+                }
+            },
+            error: function () {
+            }
+        });
+    }
+
+</script>

@@ -40,7 +40,7 @@ namespace SiegeCombat.Controllers
             {
                
             }
-            return Json(valido);
+            return Json(new { result = valido, url = "" });
         }
     }
 }
