@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="SiegeCombatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Casillas">
+          <Key>
+            <PropertyRef Name="IdCasillas" />
+          </Key>
+          <Property Name="IdPartida" Type="int" Nullable="false" />
+          <Property Name="IdJugador" Type="int" Nullable="false" />
+          <Property Name="IdCasillas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Coordenada" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Invitaciones">
           <Key>
             <PropertyRef Name="IdInvitaciones" />
@@ -113,6 +122,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SiegeCombatModelStoreContainer">
+          <EntitySet Name="Casillas" EntityType="Self.Casillas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Invitaciones" EntityType="Self.Invitaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Jugada" EntityType="Self.Jugada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Jugador" EntityType="Self.Jugador" Schema="dbo" store:Type="Tables" />
@@ -140,6 +150,15 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SiegeCombatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Casillas">
+          <Key>
+            <PropertyRef Name="IdCasillas" />
+          </Key>
+          <Property Name="IdPartida" Type="Int32" Nullable="false" />
+          <Property Name="IdJugador" Type="Int32" Nullable="false" />
+          <Property Name="IdCasillas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Coordenada" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <EntityType Name="Invitaciones">
           <Key>
             <PropertyRef Name="IdInvitaciones" />
@@ -256,6 +275,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SiegeCombatEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Casillas" EntityType="Self.Casillas" />
           <EntitySet Name="Invitaciones" EntityType="Self.Invitaciones" />
           <EntitySet Name="Jugada" EntityType="Self.Jugada" />
           <EntitySet Name="Jugador" EntityType="Self.Jugador" />
@@ -284,6 +304,16 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SiegeCombatModelStoreContainer" CdmEntityContainer="SiegeCombatEntities">
+          <EntitySetMapping Name="Casillas">
+            <EntityTypeMapping TypeName="SiegeCombatModel.Casillas">
+              <MappingFragment StoreEntitySet="Casillas">
+                <ScalarProperty Name="IdPartida" ColumnName="IdPartida" />
+                <ScalarProperty Name="IdJugador" ColumnName="IdJugador" />
+                <ScalarProperty Name="IdCasillas" ColumnName="IdCasillas" />
+                <ScalarProperty Name="Coordenada" ColumnName="Coordenada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Invitaciones">
             <EntityTypeMapping TypeName="SiegeCombatModel.Invitaciones">
               <MappingFragment StoreEntitySet="Invitaciones">

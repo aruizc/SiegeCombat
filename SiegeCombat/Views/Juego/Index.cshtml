@@ -35,6 +35,13 @@
                    
 </div>
 
+<div id="Jugada" data-url="@Url.Action("Jugada","Juego")"></div>
+<div id="SubirCoordenadas" data-url="@Url.Action("SubirCoordenadas","Juego")"></div>
+<div id="ObtenerJugada" data-url="@Url.Action("ObtenerJugada","Juego")"></div>
+
+<script type="text/javascript" src="~/Scripts/jquery.signalR-2.0.0.js"></script>
+<script type="text/javascript" src="~/signalr/hubs"></script>
+
 <script>
     var arregloJugador = new Array();
     var arregloJugadas = new Array();
@@ -42,14 +49,44 @@
     var arregloJugadasOponente = new Array();
     var aciertos = 0;
 
-    var coordenada = $(e).attr('Coordenada');
+    $(function () {
+        var HubJuego = $.connection.HubJuego;
+        HubJuego.client.empezarPartida = function (nombre, mensaje) {
+            debugger;
+            $('#tblEscenario').hidden = false;
+        };
+
+        HubJuego.client.jugadaHub = function (idJugada) {
+            debugger;
+            $.ajax({
+                url: $('#ObtenerJugada').attr('data-url'),
+                type: 'POST',
+                data: {idJugada : idJugada},
+                success: function (resultado) {
+                    debugger;
+                    if (resultado.result === true) {
+                        
+                    }
+                    else {
+                        alert('No existe el usuario');
+                    }
+                },
+                error: function () {
+                }
+            });
+        };
+
+        $.connection.hub.start().done(function () {
+            alert("conectado con exito");
+        });
+    });
 
     function Seleccion(e) {
         var seleccionado = false;
         var coordenada = $(e).attr('Coordenada');
         debugger
         for (var i = 0; i < arregloJugador.length; i++) {
-            if (arregloJugador[i] == coordenada && arregloJugador.length == 6)
+            if (arregloJugador[i] == coordenada || arregloJugador.length == 6)
             {
                 seleccionado = true;
             }
@@ -57,19 +94,24 @@
         if (!seleccionado)
         {
             arregloJugador.push(coordenada);
+            $(e).attr("src","Content/imagenes/Mangonel.png");
+            alert("Casilla seleccionada, llevas " + arregloJugador.length);
         }
         if (arregloJugador.length == 6) {
             alert("Ya acomodaste todas tus armas, a pelear!!");
+            SubirCoordenadas();
             $('#tblEscenario').html('');
             for (var i = 1; i < 5; i++) {
-                $('#tblEscenario').append('<tr><td>'+ i +'</td><td><img src="~/Content/imagenes/pasto.jpg" onclick="Jugada(this);" coordenada="'+ i +'-A" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" coordenada="'+ i +'-B" onclick="Jugada(this);" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" onclick="Jugada(this);" coordenada="'+ i +'-C" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" onclick="Jugada(this);" coordenada="'+ i +'-D" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" onclick="Jugada(this);" coordenada="'+ i +'-E" style="width:80px;height:80px;" /></td></tr>');
-            }         
+                $('#tblEscenario').append('<tr><td>'+ i +'</td><td><img src="Content/imagenes/pasto.jpg" onclick="Jugada(this);" coordenada="'+ i +'-A" style="width:80px;height:80px;" /></td><td><img src="Content/imagenes/pasto.jpg" coordenada="'+ i +'-B" onclick="Jugada(this);" style="width:80px;height:80px;" /></td><td><img src="Content/imagenes/pasto.jpg" onclick="Jugada(this);" coordenada="'+ i +'-C" style="width:80px;height:80px;" /></td><td><img src="Content/imagenes/pasto.jpg" onclick="Jugada(this);" coordenada="'+ i +'-D" style="width:80px;height:80px;" /></td><td><img src="Content/imagenes/pasto.jpg" onclick="Jugada(this);" coordenada="'+ i +'-E" style="width:80px;height:80px;" /></td></tr>');
+            }
+            ('#tblEscenario').hidden = true;
         }
     }
 
     function Jugada(e) {
         var jugadaValida = true;
         var coordenada = $(e).attr('Coordenada');
+        debugger;
         for (var i = 0; i < arregloJugadas.length; i++) {
             if (arregloJugadas[i] == coordenada)
             {
@@ -83,10 +125,15 @@
     }
 
     function hacerJugada(coordenada) {
+        debugger;
+        var coordenadas = "";
+        for (var i = 0; i < arregloOponente.length; i++) {
+            coordenadas += arregloOponente[i] + "|";
+        }
         $.ajax({
             url: $('#Jugada').attr('data-url'),
             type: 'POST',
-            data: { coordenada: coordenada, arregloOponente : arregloOponente },
+            data: { coordenada: coordenada, coordenadas : coordenadas },
             success: function (resultado) {
                 debugger;
                 if (resultado.result === false) {
@@ -127,4 +174,29 @@
         });
     }
 
+    function SubirCoordenadas() {
+        var coordenadas = "";
+        for (var i = 0; i < arregloJugador.length; i++) {
+            coordenadas += arregloJugador[i] + "|" ;
+        } 
+        
+        var direccion = $('#SubirCoordenadas').attr('data-url');
+        debugger;
+        $.ajax({
+            url: $('#SubirCoordenadas').attr('data-url'),
+            type: 'POST',
+            data: { coordenadas:coordenadas },
+            success: function (resultado) {
+                if (resultado.result === false) {
+                    alert("Casillas guardadas correctamente!!");
+                }
+                else {
+
+
+                }
+            },
+            error: function () {
+            }
+        });
+    }
 </script>

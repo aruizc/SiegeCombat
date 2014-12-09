@@ -152,6 +152,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\HubJuego.cs" />
+    <Compile Include="Models\Casillas.cs">
+      <DependentUpon>Modelos.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Invitaciones.cs">
       <DependentUpon>Modelos.tt</DependentUpon>
     </Compile>
@@ -193,6 +196,7 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\imagenes\Fire.png" />
     <Content Include="Content\imagenes\Aggre.png" />
     <Content Include="Content\imagenes\Boo.png" />
     <Content Include="Content\imagenes\España.png" />
