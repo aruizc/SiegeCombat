@@ -28,7 +28,13 @@ namespace SiegeCombat.Controllers
                 Jugador jugador = (Jugador)Session["Jugador"];
                 Jugador oponente = (Jugador)Session["Oponente"];
                 Partida partida = (Partida)Session["Partida"];
-                List<Casillas> casillas = bd.Casillas.Where(c => c.IdPartida == partida.IdPartida && c.IdJugador == oponente.IdJugador).ToList();
+                int id = 0;
+                if (partida.IdJugadorUno == jugador.IdJugador)
+                    id = partida.IdJugadorDos;
+                else
+                    id = partida.IdJugadorUno;
+
+                List<Casillas> casillas = bd.Casillas.Where(c => c.IdPartida == partida.IdPartida && c.IdJugador == id).ToList();
                 jugada.Acerto = false;
                 foreach (Casillas ca in casillas)
                 {
@@ -48,7 +54,7 @@ namespace SiegeCombat.Controllers
             {
                 throw;
             }
-            return Json(jugada.Acerto);
+            return Json(new { result = true, acerto = jugada.Acerto, turno = jugada.Turno, coor = jugada.Coordenada });
         }
 
         public ActionResult SubirCoordenadas(string coordenadas)
@@ -111,15 +117,14 @@ namespace SiegeCombat.Controllers
                 if (jugada.IdOponente == jugador.IdJugador)
                 {
                     esValido = true;
-                    return Json(new { result = true, acerto = jugada.Acerto, turno = jugada.Turno, coor = jugada.Coordenada});
-
+                    
                 }
             }
             catch (Exception)
             {
                 Json(false);
             }
-           
+            return Json(new { result = true, acerto = jugada.Acerto, turno = jugada.Turno, coor = jugada.Coordenada });
         }
     }
 }

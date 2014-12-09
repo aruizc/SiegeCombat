@@ -6,7 +6,7 @@
     <img src="~/Content/imagenes/Joystick.png" style="margin-left: 60px;margin-top: 20px;" />
 </div>
 <div class="row col-md-6" style="margin-left:50px" >
-    <h1>Posiciona tus armas soldado!! </h1>
+    <h1 id="titulo">Posiciona tus armas soldado!! </h1>
     <table style="margin-left:50px">
         <thead>
             <tr>
@@ -25,7 +25,9 @@
             }
         </tbody>
     </table>
-                   
+    <ul id="jugadas">
+
+    </ul>            
 </div>
 
 <div id="Jugada" data-url="@Url.Action("Jugada","Juego")"></div>
@@ -54,15 +56,17 @@
                 type: 'POST',
                 data: {idJugada : idJugada },
                 success: function (resultado) {
-                    debugger;
                     turno = resultado.turno;
                     if (resultado.result === true) {
-                        debugger;
                         if (resultado.acerto === false) {
-                            $("input[value='" + resultado.coor + "']").attr('src', 'Content/imagenes/Fire.png');
+                            var imagen = $("img[Coordenada='" + resultado.coor + "']");
+                            debugger;
+                            $('#jugadas').append('<li>' + resultado.coor + '</li>');
                         }
                         else {
-                            $("input[value='" + resultado.coor + "']").attr('src', 'Content/imagenes/Strike.png');
+                            var imagen = $("img[Coordenada='" + resultado.coor + "']");
+                            debugger;
+                            $('#jugadas').append('<li>' + resultado.coor + ' ACERTO!  ' + '</li>');
                         }
                     }
                     else {
@@ -97,6 +101,8 @@
         }
         if (arregloJugador.length == 6) {
             alert("Ya acomodaste todas tus armas, a pelear!!");
+            $('#titulo').html = "";
+            $('#titulo').append("Que empiece el combate!");
             SubirCoordenadas();
             $('#tblEscenario').html('');
             for (var i = 1; i < 5; i++) {
@@ -114,6 +120,7 @@
             if (arregloJugadas[i] == coordenada)
             {
                 alert("Ya has hecho esa jugada");
+                jugadaValida = false;
             }
         }
         if (jugadaValida) {
@@ -136,12 +143,19 @@
             type: 'POST',
             data: { coordenada: coordenada, turno : turno },
             success: function (resultado) {
-                debugger;
-                if (resultado === false) {
+                turno = resultado.turno;
+                if (resultado.result === false) {
                     alert("Has fallado!");
                 }
                 else {
                     alert('Diste en el blanco!');
+                    debugger;
+                    if (resultado.acerto === false) {
+                        $("img[Coordenada='" + resultado.coor + "']").attr('src', 'Content/imagenes/Fire.png');
+                    }
+                    else {
+                        $("img[Coordenada='" + resultado.coor + "']").attr('src', 'Content/imagenes/Strike.png');
+                    }
                     if (aciertos != 6) {
                         aciertos++;
                     }
