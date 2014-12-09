@@ -4,8 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8708e9677e06462891439fbec19c3000" Name="Diagram1">
+      <Diagram DiagramId="8d07ca8337a940839690ab733b23d30d" Name="Diagram1">
         <EntityTypeShape EntityType="SiegeCombatModel.Invitaciones" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SiegeCombatModel.Jugada" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SiegeCombatModel.Jugador" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SiegeCombatModel.Partida" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SiegeCombatModel.Usuario" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />

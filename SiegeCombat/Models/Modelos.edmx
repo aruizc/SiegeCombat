@@ -16,6 +16,18 @@
           <Property Name="Fecha" Type="datetime" />
           <Property Name="Estatus" Type="int" />
         </EntityType>
+        <EntityType Name="Jugada">
+          <Key>
+            <PropertyRef Name="IdJugada" />
+          </Key>
+          <Property Name="IdPartida" Type="int" Nullable="false" />
+          <Property Name="IdJugador" Type="int" Nullable="false" />
+          <Property Name="IdOponente" Type="int" Nullable="false" />
+          <Property Name="Acerto" Type="bit" Nullable="false" />
+          <Property Name="Coordenada" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Turno" Type="int" Nullable="false" />
+          <Property Name="IdJugada" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="Jugador">
           <Key>
             <PropertyRef Name="IdJugador" />
@@ -40,7 +52,7 @@
           <Property Name="Tiempo" Type="nvarchar" MaxLength="50" />
           <Property Name="IdJugadorUno" Type="int" Nullable="false" />
           <Property Name="IdJugadorDos" Type="int" Nullable="false" />
-          <Property Name="IdDetalle" Type="int" Nullable="false" />
+          <Property Name="IdJugada" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -102,6 +114,7 @@
         </Association>
         <EntityContainer Name="SiegeCombatModelStoreContainer">
           <EntitySet Name="Invitaciones" EntityType="Self.Invitaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jugada" EntityType="Self.Jugada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Jugador" EntityType="Self.Jugador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Partida" EntityType="Self.Partida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
@@ -139,6 +152,18 @@
           <Property Name="Estatus" Type="Int32" />
           <NavigationProperty Name="Jugador" Relationship="Self.FK_Invitaciones_Jugador" FromRole="Invitaciones" ToRole="Jugador" />
         </EntityType>
+        <EntityType Name="Jugada">
+          <Key>
+            <PropertyRef Name="IdJugada" />
+          </Key>
+          <Property Name="IdPartida" Type="Int32" Nullable="false" />
+          <Property Name="IdJugador" Type="Int32" Nullable="false" />
+          <Property Name="IdOponente" Type="Int32" Nullable="false" />
+          <Property Name="Acerto" Type="Boolean" Nullable="false" />
+          <Property Name="Coordenada" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Turno" Type="Int32" Nullable="false" />
+          <Property Name="IdJugada" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
         <EntityType Name="Jugador">
           <Key>
             <PropertyRef Name="IdJugador" />
@@ -167,7 +192,7 @@
           <Property Name="Tiempo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IdJugadorUno" Type="Int32" Nullable="false" />
           <Property Name="IdJugadorDos" Type="Int32" Nullable="false" />
-          <Property Name="IdDetalle" Type="Int32" Nullable="false" />
+          <Property Name="IdJugada" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Jugador" Relationship="Self.FK_Partida_Jugador" FromRole="Partida" ToRole="Jugador" />
           <NavigationProperty Name="Jugador1" Relationship="Self.FK_Partida_Jugador1" FromRole="Partida" ToRole="Jugador" />
         </EntityType>
@@ -232,6 +257,7 @@
         </Association>
         <EntityContainer Name="SiegeCombatEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Invitaciones" EntityType="Self.Invitaciones" />
+          <EntitySet Name="Jugada" EntityType="Self.Jugada" />
           <EntitySet Name="Jugador" EntityType="Self.Jugador" />
           <EntitySet Name="Partida" EntityType="Self.Partida" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" />
@@ -270,6 +296,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Jugada">
+            <EntityTypeMapping TypeName="SiegeCombatModel.Jugada">
+              <MappingFragment StoreEntitySet="Jugada">
+                <ScalarProperty Name="IdPartida" ColumnName="IdPartida" />
+                <ScalarProperty Name="IdJugador" ColumnName="IdJugador" />
+                <ScalarProperty Name="IdOponente" ColumnName="IdOponente" />
+                <ScalarProperty Name="Acerto" ColumnName="Acerto" />
+                <ScalarProperty Name="Coordenada" ColumnName="Coordenada" />
+                <ScalarProperty Name="Turno" ColumnName="Turno" />
+                <ScalarProperty Name="IdJugada" ColumnName="IdJugada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Jugador">
             <EntityTypeMapping TypeName="SiegeCombatModel.Jugador">
               <MappingFragment StoreEntitySet="Jugador">
@@ -294,7 +333,7 @@
                 <ScalarProperty Name="Tiempo" ColumnName="Tiempo" />
                 <ScalarProperty Name="IdJugadorUno" ColumnName="IdJugadorUno" />
                 <ScalarProperty Name="IdJugadorDos" ColumnName="IdJugadorDos" />
-                <ScalarProperty Name="IdDetalle" ColumnName="IdDetalle" />
+                <ScalarProperty Name="IdJugada" ColumnName="IdJugada" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -13,22 +13,118 @@
     <img src="~/Content/imagenes/Joystick.png" style="margin-left: 60px;margin-top: 20px;" />
 </div>
 <div class="row col-md-6" style="margin-left:50px" >
-    <table>
+    <h1>Posiciona tus armas soldado!! </h1>
+    <table style="margin-left:50px">
         <thead>
             <tr>
                 <th></th>
-                <th>A</th>
-                <th>B</th>
-                <th>C</th>
-                <th>D</th>
-                <th>E</th>
+                <th style="margin-left:50px">A</th>
+                <th style="margin-left:50px">B</th>
+                <th style="margin-left:50px">C</th>
+                <th style="margin-left:50px">D</th>
+                <th style="margin-left:50px">E</th>
             </tr>
         </thead>
         <tbody id="tblEscenario">
             @for (int i = 1; i < 5; i++)
             {
-                <tr><td>@i.ToString()</td><td><img src="~/Content/imagenes/pasto.jpg" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" style="width:80px;height:80px;" /></td></tr>
+                <tr><td>@i.ToString()</td><td><img src="~/Content/imagenes/pasto.jpg" onclick="Seleccion(this);" Coordenada="@i-A" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" coordenada="@i-B" onclick="Seleccion(this);" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" onclick="Seleccion(this);" coordenada="@i-C" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" onclick="Seleccion(this);" coordenada="@i-D" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" onclick="Seleccion(this);" coordenada="@i-E" style="width:80px;height:80px;" /></td></tr>
             }
         </tbody>
     </table>
+                   
 </div>
+
+<script>
+    var arregloJugador = new Array();
+    var arregloJugadas = new Array();
+    var arregloOponente = new Array();
+    var arregloJugadasOponente = new Array();
+    var aciertos = 0;
+
+    var coordenada = $(e).attr('Coordenada');
+
+    function Seleccion(e) {
+        var seleccionado = false;
+        var coordenada = $(e).attr('Coordenada');
+        debugger
+        for (var i = 0; i < arregloJugador.length; i++) {
+            if (arregloJugador[i] == coordenada && arregloJugador.length == 6)
+            {
+                seleccionado = true;
+            }
+        }
+        if (!seleccionado)
+        {
+            arregloJugador.push(coordenada);
+        }
+        if (arregloJugador.length == 6) {
+            alert("Ya acomodaste todas tus armas, a pelear!!");
+            $('#tblEscenario').html('');
+            for (var i = 1; i < 5; i++) {
+                $('#tblEscenario').append('<tr><td>'+ i +'</td><td><img src="~/Content/imagenes/pasto.jpg" onclick="Jugada(this);" coordenada="'+ i +'-A" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" coordenada="'+ i +'-B" onclick="Jugada(this);" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" onclick="Jugada(this);" coordenada="'+ i +'-C" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" onclick="Jugada(this);" coordenada="'+ i +'-D" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" onclick="Jugada(this);" coordenada="'+ i +'-E" style="width:80px;height:80px;" /></td></tr>');
+            }         
+        }
+    }
+
+    function Jugada(e) {
+        var jugadaValida = true;
+        var coordenada = $(e).attr('Coordenada');
+        for (var i = 0; i < arregloJugadas.length; i++) {
+            if (arregloJugadas[i] == coordenada)
+            {
+                alert("Ya has hecho esa jugada");
+            }
+        }
+        if (jugadaValida) {
+            e.enable = false;
+            hacerJugada(coordenada);
+        }
+    }
+
+    function hacerJugada(coordenada) {
+        $.ajax({
+            url: $('#Jugada').attr('data-url'),
+            type: 'POST',
+            data: { coordenada: coordenada, arregloOponente : arregloOponente },
+            success: function (resultado) {
+                debugger;
+                if (resultado.result === false) {
+                    alert("Has fallado!");
+                }
+                else {
+                    alert('Diste en el blanco!');
+                    if (aciertos != 6) {
+                        aciertos++;
+                    }
+                    else {
+                        alert("Ganaste el juego!!!")
+                        acabarPartida();
+                    }
+                }
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function acabarPartida() {
+        $.ajax({
+            url: $('#AcabarPartida').attr('data-url'),
+            type: 'POST',
+            success: function (resultado) {
+                 debugger;
+                if (resultado.result === false) {
+                    alert("Regresaras al lobby");
+                }
+                else {
+                    
+                   
+                }
+            },
+            error: function () {
+            }
+        });
+    }
+
+</script>

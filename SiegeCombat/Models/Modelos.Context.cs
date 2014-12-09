@@ -26,6 +26,7 @@ namespace SiegeCombat.Models
         }
     
         public DbSet<Invitaciones> Invitaciones { get; set; }
+        public DbSet<Jugada> Jugada { get; set; }
         public DbSet<Jugador> Jugador { get; set; }
         public DbSet<Partida> Partida { get; set; }
         public DbSet<Usuario> Usuario { get; set; }

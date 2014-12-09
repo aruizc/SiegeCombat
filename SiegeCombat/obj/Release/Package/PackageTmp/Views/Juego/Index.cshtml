@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Juego";
+}
+
+
+<div class="row col-md-3" style="background-color:firebrick; height:800px">
+    <img src="~/Content/imagenes/Joystick.png" style="margin-left: 60px;margin-top: 20px;" />
+</div>
+<div class="row col-md-6" style="margin-left:50px" >
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+                <th>D</th>
+                <th>E</th>
+            </tr>
+        </thead>
+        <tbody id="tblEscenario">
+            @for (int i = 1; i < 5; i++)
+            {
+                <tr><td>@i.ToString()</td><td><img src="~/Content/imagenes/pasto.jpg" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" style="width:80px;height:80px;" /></td></tr>
+            }
+        </tbody>
+    </table>
+</div>

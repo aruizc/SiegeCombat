@@ -12,17 +12,14 @@ namespace SiegeCombat.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Partida
+    public partial class Jugada
     {
         public int IdPartida { get; set; }
-        public Nullable<System.DateTime> Fecha { get; set; }
-        public Nullable<int> IdGanador { get; set; }
-        public string Tiempo { get; set; }
-        public int IdJugadorUno { get; set; }
-        public int IdJugadorDos { get; set; }
+        public int IdJugador { get; set; }
+        public int IdOponente { get; set; }
+        public bool Acerto { get; set; }
+        public string Coordenada { get; set; }
+        public int Turno { get; set; }
         public int IdJugada { get; set; }
-    
-        public virtual Jugador Jugador { get; set; }
-        public virtual Jugador Jugador1 { get; set; }
     }
 }

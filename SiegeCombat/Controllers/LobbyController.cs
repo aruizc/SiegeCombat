@@ -108,16 +108,20 @@ namespace SiegeCombat.Controllers
             Invitaciones invitacion = (Invitaciones)Session["Invitacion"];
             Usuario usuario = (Usuario)Session["Usuario"];
             Jugador jugador = (Jugador)Session["Jugador"];
+            Session["Oponente"] = bd.Jugador.Find(invitacion.IdHost);
+            
             jugador.Estatus = "JUGANDO";
 
             Partida partida = new Partida();
             partida.Fecha = DateTime.Now;
             partida.IdJugadorUno = jugador.IdJugador;
             partida.IdJugadorDos = (int)invitacion.IdHost;
+            
 
             bd.Partida.Add(partida);
             bd.Entry(jugador).State = System.Data.EntityState.Modified;
             bd.SaveChanges();
+            Session["Partida"] = partida;
             return Json(new { result = true, url = Url.Action("Index", "Juego") });
         }
 
