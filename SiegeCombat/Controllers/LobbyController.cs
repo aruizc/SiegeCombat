@@ -129,8 +129,8 @@ namespace SiegeCombat.Controllers
         public ActionResult Cancelar() {
             try
             {
-                List<Invitaciones> lstInvitacion = (List<Invitaciones>)Session["Invitacion"];
-                Invitaciones invitacion = bd.Invitaciones.Find(lstInvitacion[0].IdInvitaciones);
+                Invitaciones invitacion = (Invitaciones)Session["Invitacion"];
+                invitacion = bd.Invitaciones.Find(invitacion.IdInvitaciones);
                 invitacion.Estatus = 0;
                 bd.Entry(invitacion).State = System.Data.EntityState.Modified;
                 bd.SaveChanges();
@@ -147,8 +147,29 @@ namespace SiegeCombat.Controllers
             try
             {
                 Jugador jugador = (Jugador)Session["Jugador"];
-                if(jugador.IdJugador == idOponente)
+                Jugador oponente = bd.Jugador.Find(idOponente);
+                Session["Oponente"] =  oponente;
+                List<Invitaciones> invitacion = null;
+                invitacion = bd.Invitaciones.Where(i => i.IdOponente == jugador.IdJugador && i.Estatus != 0).ToList();
+                bool valido = false;
+                foreach (Invitaciones i in invitacion)
+                {
+                    if (i.Estatus == 1)
+                    {
+                        Session["Invitacion"] = i;
+                        DateTime ahora = DateTime.Now;
+                        TimeSpan tiempo = ahora - (DateTime)i.Fecha;
+                        int diferencia = tiempo.Minutes;
+                        if (diferencia <= 3)
+                            return Json(new { result = true, url = Url.Action("Index", "Juego"), id = i.IdInvitaciones });
+                    }
+                }
+                if (jugador.IdJugador == idOponente)
+                {
+                    Partida partida = bd.Partida.Where(p => p.IdJugadorDos == jugador.IdJugador && p.Estatus == 0).First();
+                    Session["Partida"] = partida;
                     return Json(new { result = true, url = Url.Action("Index", "Juego") });
+                }
                 else
                     return Json(new { result = false, url = Url.Action("Index", "Juego") });
             }

@@ -17,7 +17,7 @@ namespace SiegeCombat.Controllers
             return View();
         }
 
-        public ActionResult Jugada(string coordenada)
+        public ActionResult Jugada(string coordenada,int turno)
         {
             Jugada jugada = new Jugada();  
             try
@@ -38,6 +38,8 @@ namespace SiegeCombat.Controllers
                 jugada.IdJugador = jugador.IdJugador;
                 jugada.IdOponente = oponente.IdJugador;
                 jugada.IdPartida = partida.IdPartida;
+                jugada.Turno = turno;
+                jugada.Coordenada = coordenada;
                 bd.Jugada.Add(jugada);
                 bd.SaveChanges();
                 Hubs.HubJuego.Jugada(jugada.IdJugada);
@@ -87,6 +89,7 @@ namespace SiegeCombat.Controllers
                 Partida partida = (Partida)Session["Partida"];
                 partida = bd.Partida.Find(partida.IdPartida);
                 partida.IdGanador = jugador.IdJugador;
+                partida.Estatus = 1;
                 bd.Entry(partida).State = System.Data.EntityState.Modified;
                 bd.SaveChanges();
             }
@@ -100,18 +103,23 @@ namespace SiegeCombat.Controllers
         public ActionResult ObtenerJugada(int idJugada)
         {
             bool esValido = false;
+            Jugada jugada = bd.Jugada.Find(idJugada);
             try
             {
-                Jugada jugada = bd.Jugada.Find(idJugada);
+                
                 Jugador jugador = (Jugador)Session["Jugador"];
                 if (jugada.IdOponente == jugador.IdJugador)
+                {
                     esValido = true;
+                    return Json(new { result = true, acerto = jugada.Acerto, turno = jugada.Turno, coor = jugada.Coordenada});
+
+                }
             }
             catch (Exception)
             {
                 Json(false);
             }
-            return Json(esValido);
+           
         }
     }
 }

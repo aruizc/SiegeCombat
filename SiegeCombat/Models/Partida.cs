@@ -21,6 +21,7 @@ namespace SiegeCombat.Models
         public int IdJugadorUno { get; set; }
         public int IdJugadorDos { get; set; }
         public int IdJugada { get; set; }
+        public int Estatus { get; set; }
     
         public virtual Jugador Jugador { get; set; }
         public virtual Jugador Jugador1 { get; set; }

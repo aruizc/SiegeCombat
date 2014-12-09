@@ -62,6 +62,7 @@
           <Property Name="IdJugadorUno" Type="int" Nullable="false" />
           <Property Name="IdJugadorDos" Type="int" Nullable="false" />
           <Property Name="IdJugada" Type="int" Nullable="false" />
+          <Property Name="Estatus" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -212,6 +213,7 @@
           <Property Name="IdJugadorUno" Type="Int32" Nullable="false" />
           <Property Name="IdJugadorDos" Type="Int32" Nullable="false" />
           <Property Name="IdJugada" Type="Int32" Nullable="false" />
+          <Property Name="Estatus" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Jugador" Relationship="Self.FK_Partida_Jugador" FromRole="Partida" ToRole="Jugador" />
           <NavigationProperty Name="Jugador1" Relationship="Self.FK_Partida_Jugador1" FromRole="Partida" ToRole="Jugador" />
         </EntityType>
@@ -364,6 +366,7 @@
                 <ScalarProperty Name="IdJugadorUno" ColumnName="IdJugadorUno" />
                 <ScalarProperty Name="IdJugadorDos" ColumnName="IdJugadorDos" />
                 <ScalarProperty Name="IdJugada" ColumnName="IdJugada" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

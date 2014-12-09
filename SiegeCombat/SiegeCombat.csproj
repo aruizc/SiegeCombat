@@ -153,37 +153,37 @@
     </Compile>
     <Compile Include="Hubs\HubJuego.cs" />
     <Compile Include="Models\Casillas.cs">
-      <DependentUpon>Modelos.tt</DependentUpon>
+      <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Invitaciones.cs">
-      <DependentUpon>Modelos.tt</DependentUpon>
+      <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Jugada.cs">
-      <DependentUpon>Modelos.tt</DependentUpon>
+      <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Jugador.cs">
-      <DependentUpon>Modelos.tt</DependentUpon>
+      <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Modelos.Context.cs">
+    <Compile Include="Models\Modelo.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Modelos.Context.tt</DependentUpon>
+      <DependentUpon>Modelo.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Modelos.cs">
+    <Compile Include="Models\Modelo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Modelos.tt</DependentUpon>
+      <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Modelos.Designer.cs">
+    <Compile Include="Models\Modelo.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Modelos.edmx</DependentUpon>
+      <DependentUpon>Modelo.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Partida.cs">
-      <DependentUpon>Modelos.tt</DependentUpon>
+      <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Usuario.cs">
-      <DependentUpon>Modelos.tt</DependentUpon>
+      <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -196,6 +196,7 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\imagenes\Strike.png" />
     <Content Include="Content\imagenes\Fire.png" />
     <Content Include="Content\imagenes\Aggre.png" />
     <Content Include="Content\imagenes\Boo.png" />
@@ -279,22 +280,22 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <EntityDeploy Include="Models\Modelos.edmx">
+    <EntityDeploy Include="Models\Modelo.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Modelos.Designer.cs</LastGenOutput>
+      <LastGenOutput>Modelo.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Modelos.Context.tt">
+    <Content Include="Models\Modelo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Modelos.edmx</DependentUpon>
-      <LastGenOutput>Modelos.Context.cs</LastGenOutput>
+      <DependentUpon>Modelo.edmx</DependentUpon>
+      <LastGenOutput>Modelo.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Modelos.edmx.diagram">
-      <DependentUpon>Modelos.edmx</DependentUpon>
+    <Content Include="Models\Modelo.edmx.diagram">
+      <DependentUpon>Modelo.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\Modelos.tt">
+    <Content Include="Models\Modelo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Modelos.edmx</DependentUpon>
-      <LastGenOutput>Modelos.cs</LastGenOutput>
+      <DependentUpon>Modelo.edmx</DependentUpon>
+      <LastGenOutput>Modelo.cs</LastGenOutput>
     </Content>
     <None Include="Properties\PublishProfiles\Custom.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />

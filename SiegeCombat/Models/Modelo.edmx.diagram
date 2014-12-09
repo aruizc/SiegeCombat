@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="af24870a55ca43c5a2f518d33db3ce41" Name="Diagram1">
+      <Diagram DiagramId="37d6ec73428948188e4b2573e33285be" Name="Diagram1">
         <EntityTypeShape EntityType="SiegeCombatModel.Casillas" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SiegeCombatModel.Invitaciones" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="SiegeCombatModel.Jugada" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SiegeCombatModel.Jugador" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SiegeCombatModel.Jugador" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="SiegeCombatModel.Partida" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SiegeCombatModel.Usuario" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SiegeCombatModel.Usuario" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
         <AssociationConnector Association="SiegeCombatModel.FK_Invitaciones_Jugador" ManuallyRouted="false" />
         <AssociationConnector Association="SiegeCombatModel.FK_Partida_Jugador" ManuallyRouted="false" />
         <AssociationConnector Association="SiegeCombatModel.FK_Partida_Jugador1" ManuallyRouted="false" />
