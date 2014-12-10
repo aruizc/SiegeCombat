@@ -20,6 +20,7 @@ namespace SiegeCombat.Controllers
         public ActionResult Jugada(string coordenada,int turno)
         {
             Jugada jugada = new Jugada();  
+            string usu = "";
             try
             {
                 
@@ -33,7 +34,7 @@ namespace SiegeCombat.Controllers
                     id = partida.IdJugadorDos;
                 else
                     id = partida.IdJugadorUno;
-
+                usu = jugador.Nickname;
                 List<Casillas> casillas = bd.Casillas.Where(c => c.IdPartida == partida.IdPartida && c.IdJugador == id).ToList();
                 jugada.Acerto = false;
                 foreach (Casillas ca in casillas)
@@ -54,7 +55,7 @@ namespace SiegeCombat.Controllers
             {
                 throw;
             }
-            return Json(new { result = true, acerto = jugada.Acerto, turno = jugada.Turno, coor = jugada.Coordenada });
+            return Json(new { result = jugada.Acerto,usuario = usu , acerto = jugada.Acerto, turno = jugada.Turno, coor = jugada.Coordenada });
         }
 
         public ActionResult SubirCoordenadas(string coordenadas)
@@ -103,7 +104,7 @@ namespace SiegeCombat.Controllers
             {
                 return Json(false);
             }
-            return Json(true);
+            return Json(new { result = true, url = Url.Action("Index", "Lobby") });
         }
 
         public ActionResult ObtenerJugada(int idJugada)

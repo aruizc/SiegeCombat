@@ -119,6 +119,9 @@ namespace SiegeCombat.Controllers
             jugador = bd.Jugador.Find(jugador.IdJugador);
 
             bd.Partida.Add(partida);
+            invitacion = bd.Invitaciones.Find(invitacion.IdInvitaciones);
+            bd.Entry(invitacion).State = System.Data.EntityState.Modified;
+
             bd.Entry(jugador).State = System.Data.EntityState.Modified;
             bd.SaveChanges();
             Session["Partida"] = partida;
