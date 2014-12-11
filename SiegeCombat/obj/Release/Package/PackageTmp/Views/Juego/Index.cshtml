@@ -2,27 +2,246 @@
     ViewBag.Title = "Juego";
 }
 
-
 <div class="row col-md-3" style="background-color:firebrick; height:800px">
     <img src="~/Content/imagenes/Joystick.png" style="margin-left: 60px;margin-top: 20px;" />
 </div>
 <div class="row col-md-6" style="margin-left:50px" >
-    <table>
+    <h1 id="titulo">Posiciona tus armas soldado!! </h1>
+    <table style="margin-left:50px">
         <thead>
             <tr>
                 <th></th>
-                <th>A</th>
-                <th>B</th>
-                <th>C</th>
-                <th>D</th>
-                <th>E</th>
+                <th style="margin-left:50px">A</th>
+                <th style="margin-left:50px">B</th>
+                <th style="margin-left:50px">C</th>
+                <th style="margin-left:50px">D</th>
+                <th style="margin-left:50px">E</th>
             </tr>
         </thead>
         <tbody id="tblEscenario">
             @for (int i = 1; i < 5; i++)
             {
-                <tr><td>@i.ToString()</td><td><img src="~/Content/imagenes/pasto.jpg" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" style="width:80px;height:80px;" /></td></tr>
+                <tr><td>@i.ToString()</td><td><img src="~/Content/imagenes/pasto.jpg" onclick="Seleccion(this);" Coordenada="@i-A" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" coordenada="@i-B" onclick="Seleccion(this);" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" onclick="Seleccion(this);" coordenada="@i-C" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" onclick="Seleccion(this);" coordenada="@i-D" style="width:80px;height:80px;" /></td><td><img src="~/Content/imagenes/pasto.jpg" onclick="Seleccion(this);" coordenada="@i-E" style="width:80px;height:80px;" /></td></tr>
             }
         </tbody>
     </table>
+    <ul id="jugadas">
+
+    </ul>            
 </div>
+
+<div id="Jugada" data-url="@Url.Action("Jugada","Juego")"></div>
+<div id="SubirCoordenadas" data-url="@Url.Action("SubirCoordenadas","Juego")"></div>
+<div id="ObtenerJugada" data-url="@Url.Action("ObtenerJugada","Juego")"></div>
+<div id="AcabarPartida" data-url="@Url.Action("AcabarPartida","Juego")"></div>
+<div id="ValidarLobby" data-url="@Url.Action("ValidarLobby","Juego")"></div>
+@section scripts {
+
+<script type="text/javascript" src="~/Scripts/jquery.signalR-2.0.0.js"></script>
+<script type="text/javascript" src="~/signalr/hubs"></script>
+
+<script>
+    var arregloJugador = new Array();
+    var arregloJugadas = new Array();
+    var arregloOponente = new Array();
+    var arregloJugadasOponente = new Array();
+    var aciertos = 0;
+    var turno = 0;
+
+    $(function () {
+        var juegoHub = $.connection.hubJuego;
+
+        juegoHub.client.jugadaHub = function (idJugada) {
+            $.ajax({
+                url: $('#ObtenerJugada').attr('data-url'),
+                type: 'POST',
+                data: {idJugada : idJugada },
+                success: function (resultado) {
+                    turno = resultado.turno;
+                    if (resultado.result === true) {
+                        if (resultado.acerto === false) {
+                            var imagen = $("img[Coordenada='" + resultado.coor + "']");
+                            $('#jugadas').append('<li>' + resultado.coor + '</li>');
+                        }
+                        else {
+                            var imagen = $("img[Coordenada='" + resultado.coor + "']");
+                            debugger;
+                            $('#jugadas').append('<li><strong>'+ resultado.usuario + '</strong>'+ resultado.coor + ' ACERTO!  ' + '</li>');
+                        }
+                    }
+                    else {
+                        
+                    }
+                },
+                error: function () {
+                }
+            });
+        };
+
+        juegoHub.client.lobby = function (idJugador) {
+            $.ajax({
+                url: $('#ValidarLobby').attr('data-url'),
+                type: 'POST',
+                data: { idJugador: idJugador },
+                success: function (resultado) {
+                    turno = resultado.turno;
+                    if (resultado.result === true) {
+                        if (resultado.acerto === false) {
+                            var imagen = $("img[Coordenada='" + resultado.coor + "']");
+                            $('#jugadas').append('<li>' + resultado.coor + '</li>');
+                        }
+                        else {
+                            var imagen = $("img[Coordenada='" + resultado.coor + "']");
+                            debugger;
+                            $('#jugadas').append('<li><strong>' + resultado.usuario + '</strong>' + resultado.coor + ' ACERTO!  ' + '</li>');
+                        }
+                    }
+                    else {
+
+                    }
+                },
+                error: function () {
+                }
+            });
+        };
+
+        $.connection.hub.start().done(function () {
+            
+        });
+    });
+
+    function Seleccion(e) {
+        var seleccionado = false;
+        var coordenada = $(e).attr('Coordenada');
+        debugger
+        for (var i = 0; i < arregloJugador.length; i++) {
+            if (arregloJugador[i] == coordenada || arregloJugador.length == 6)
+            {
+                seleccionado = true;
+            }
+        }
+        if (!seleccionado)
+        {
+            arregloJugador.push(coordenada);
+            $(e).attr("src","Content/imagenes/Mangonel.png");
+        }
+        if (arregloJugador.length == 6) {
+            alert("Ya acomodaste todas tus armas, a pelear!!");
+            $('#titulo').html = "";
+            $('#titulo').append("Que empiece el combate!");
+            SubirCoordenadas();
+            $('#tblEscenario').html('');
+            for (var i = 1; i < 5; i++) {
+                $('#tblEscenario').append('<tr><td>'+ i +'</td><td><img src="Content/imagenes/pasto.jpg" onclick="Jugada(this);" coordenada="'+ i +'-A" style="width:80px;height:80px;" /></td><td><img src="Content/imagenes/pasto.jpg" coordenada="'+ i +'-B" onclick="Jugada(this);" style="width:80px;height:80px;" /></td><td><img src="Content/imagenes/pasto.jpg" onclick="Jugada(this);" coordenada="'+ i +'-C" style="width:80px;height:80px;" /></td><td><img src="Content/imagenes/pasto.jpg" onclick="Jugada(this);" coordenada="'+ i +'-D" style="width:80px;height:80px;" /></td><td><img src="Content/imagenes/pasto.jpg" onclick="Jugada(this);" coordenada="'+ i +'-E" style="width:80px;height:80px;" /></td></tr>');
+            }
+            ('#tblEscenario').hidden = true;
+        }
+    }
+
+    function Jugada(e) {
+        var jugadaValida = true;
+        var coordenada = $(e).attr('Coordenada');
+        debugger;
+        for (var i = 0; i < arregloJugadas.length; i++) {
+            if (arregloJugadas[i] == coordenada)
+            {
+                alert("Ya has hecho esa jugada");
+                jugadaValida = false;
+            }
+        }
+        if (jugadaValida) {
+            turno++;
+            arregloJugadas.push(coordenada);
+            e.enable = false;
+            hacerJugada(coordenada);
+        }
+    }
+
+    function hacerJugada(coordenada) {
+        debugger;
+        var coordenadas = "";
+        for (var i = 0; i < arregloOponente.length; i++) {
+            coordenadas += arregloOponente[i] + "|";
+        }
+        
+        $.ajax({
+            url: $('#Jugada').attr('data-url'),
+            type: 'POST',
+            data: { coordenada: coordenada, turno : turno },
+            success: function (resultado) {
+                turno = resultado.turno;
+                if (resultado.result === false) {
+                    alert("Has fallado!");
+                    $("img[Coordenada='" + resultado.coor + "']").attr('src', 'Content/imagenes/Fire.png');
+                }
+                else {
+                    alert('Diste en el blanco!');
+                    debugger;
+                    if (resultado.acerto === false) {
+                        $("img[Coordenada='" + resultado.coor + "']").attr('src', 'Content/imagenes/Fire.png');
+                    }
+                    else {
+                        $("img[Coordenada='" + resultado.coor + "']").attr('src', 'Content/imagenes/Strike.png');
+                        aciertos++;
+                    }
+                    if (aciertos != 6) {
+                        
+                    }
+                    else {
+                        alert("Ganaste el juego!!!")
+                        acabarPartida();
+                    }
+                }
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function acabarPartida() {
+        $.ajax({
+            url: $('#AcabarPartida').attr('data-url'),
+            type: 'POST',
+            success: function (resultado) {
+                 debugger;
+                if (resultado.result === false) {
+                    alert("Regresaras al lobby");
+                    window.location.replace(resultado.url);
+                }
+                else {
+                    
+                   
+                }
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function SubirCoordenadas() {
+        var coordenadas = "";
+        for (var i = 0; i < arregloJugador.length; i++) {
+            coordenadas += arregloJugador[i] + "|" ;
+        } 
+        
+        var direccion = $('#SubirCoordenadas').attr('data-url');
+        debugger;
+        $.ajax({
+            url: $('#SubirCoordenadas').attr('data-url'),
+            type: 'POST',
+            data: { coordenadas:coordenadas },
+            success: function (resultado) {
+                if (resultado.result === false) {
+                    alert("Casillas guardadas correctamente!!");
+                }
+                else {
+
+
+                }
+            },
+            error: function () {
+            }
+        });
+    }
+</script>
+}

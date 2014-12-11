@@ -97,7 +97,11 @@ namespace SiegeCombat.Controllers
                 partida = bd.Partida.Find(partida.IdPartida);
                 partida.IdGanador = jugador.IdJugador;
                 partida.Estatus = 1;
+                jugador = bd.Jugador.Find(jugador.IdJugador);
+                jugador.EXP += 100;
+                bd.Entry(jugador).State = System.Data.EntityState.Modified;
                 bd.Entry(partida).State = System.Data.EntityState.Modified;
+                Hubs.HubJuego.Lobby(oponente.IdJugador);
                 bd.SaveChanges();
             }
             catch (Exception ex)
@@ -107,25 +111,41 @@ namespace SiegeCombat.Controllers
             return Json(new { result = true, url = Url.Action("Index", "Lobby") });
         }
 
+        public ActionResult ValidarLobby(int idJugador)
+        {
+            try
+            {
+                Jugador jugador = (Jugador)Session["Jugador"];
+                if(jugador.IdJugador == idJugador)
+                    return Json(new { result = true, url = Url.Action("Index", "Lobby") });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { result = false, url = Url.Action("Index", "Lobby") });
+            }
+            return Json(new { result = true, url = Url.Action("Index", "Lobby") });
+        }
+
         public ActionResult ObtenerJugada(int idJugada)
         {
             bool esValido = false;
             Jugada jugada = bd.Jugada.Find(idJugada);
+            string usu = "";
             try
             {
                 
                 Jugador jugador = (Jugador)Session["Jugador"];
                 if (jugada.IdOponente == jugador.IdJugador)
                 {
-                    esValido = true;
-                    
+                    esValido = true;                   
                 }
+                usu = jugador.Nickname;
             }
             catch (Exception)
             {
                 Json(false);
             }
-            return Json(new { result = true, acerto = jugada.Acerto, turno = jugada.Turno, coor = jugada.Coordenada });
+            return Json(new { result = true, usuario = usu, acerto = jugada.Acerto, turno = jugada.Turno, coor = jugada.Coordenada });
         }
     }
 }
